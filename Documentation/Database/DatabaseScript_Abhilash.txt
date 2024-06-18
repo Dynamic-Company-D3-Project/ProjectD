@@ -1,0 +1,218 @@
+Database Script
+
+1)User Table :
+
+CREATE TABLE user (
+    User_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    first_name CHAR(20) NOT NULL,
+    last_name CHAR(20) NOT NULL,
+    email CHAR(50) NOT NULL,
+    phone_number VARCHAR(15) NOT NULL,
+    password CHAR(20) NOT NULL,
+    Age INT NOT NULL,
+    gender CHAR(10) NOT NULL,
+    Is_deleted INT(1) NOT NULL,
+    avatar VARCHAR(100),
+    address_id INT NOT NULL,
+    FOREIGN KEY (address_id) REFERENCES address(address_id)
+);
+
+2)address table :
+
+CREATE TABLE address (
+    address_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    street VARCHAR(20),
+    address_type VARCHAR(15),
+    pincode INT,
+    house_no INT,
+    state VARCHAR(20),
+    city VARCHAR(15),
+    country VARCHAR(15),
+    FOREIGN KEY (user_id) REFERENCES user(User_id)
+);
+
+3)order table :
+
+CREATE TABLE order (
+    order_id INT NOT NULL PRIMARY KEY,
+    user_id INT NOT NULL,
+    subcategory_id INT NOT NULL,
+    booking_id INT NOT NULL,
+    Status INT DEFAULT 0,
+    description LONGBLOB,
+    FOREIGN KEY (user_id) REFERENCES user(User_id),
+    FOREIGN KEY (subcategory_id) REFERENCES subcategory(subcategory_id),
+    FOREIGN KEY (booking_id) REFERENCES booking(booking_id)
+);
+
+4)Booking table:
+
+CREATE TABLE booking (
+    booking_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    subcategory_id INT,
+    booking_date DATE,
+    booking_time TIME,
+    status INT DEFAULT 0,
+    provider_id INT,
+    FOREIGN KEY (user_id) REFERENCES user(User_id),
+    FOREIGN KEY (subcategory_id) REFERENCES cart(subcategory_id),
+    FOREIGN KEY (provider_id) REFERENCES provider(provider_id)
+);
+
+5)Category table :
+
+CREATE TABLE category (
+    category_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    category_name CHAR(20) NOT NULL,
+    description VARCHAR(500),
+    icon VARCHAR(100) NOT NULL
+);
+
+6)Subcategory table :
+
+CREATE TABLE subcategory (
+    subcategory_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    category_id INT NOT NULL,
+    subcategory_name CHAR(20) NOT NULL,
+    description VARCHAR(500),
+    Rating INT,
+    price DOUBLE(8, 2) NOT NULL,
+    image VARCHAR(100) NOT NULL,
+    isDeleted INT,
+    last_updated DATE,
+    FOREIGN KEY (category_id) REFERENCES category(category_id)
+);
+
+7)Review Table : 
+
+CREATE TABLE review (
+    review_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    subcategory_id INT NOT NULL,
+    rating INT,
+    review VARCHAR(100),
+    review_date DATE,
+    FOREIGN KEY (user_id) REFERENCES user(User_id),
+    FOREIGN KEY (subcategory_id) REFERENCES subcategory(subcategory_id)
+);
+
+8)cart table :
+
+CREATE TABLE cart (
+    cart_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    subcategory_id INT,
+    booking_date DATE,
+    booking_time TIME,
+    UNIQUE KEY (cart_id),
+    FOREIGN KEY (user_id) REFERENCES user(User_id),
+    FOREIGN KEY (subcategory_id) REFERENCES subcategory(subcategory_id)
+);
+
+
+9)user_support table
+
+CREATE TABLE user_support (
+    support_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    subcategory_id INT NOT NULL,
+    booking_id INT NOT NULL,
+    Status INT DEFAULT 0,
+    description LONGBLOB,
+    FOREIGN KEY (user_id) REFERENCES user(User_id),
+    FOREIGN KEY (subcategory_id) REFERENCES subcategory(subcategory_id),
+    FOREIGN KEY (booking_id) REFERENCES booking(booking_id)
+);
+
+
+10)admin table
+
+CREATE TABLE admin (
+    admin_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    admin_name CHAR(50) NOT NULL,
+    admin_email VARCHAR(50) NOT NULL,
+    admin_password VARCHAR(50) NOT NULL,
+    admin_gender VARCHAR(2) NOT NULL,
+    admin_phoneno VARCHAR(13) NOT NULL
+);
+
+
+11)provider table :
+
+CREATE TABLE provider (
+    provider_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    provider_name CHAR(50) NOT NULL,
+    provider_email VARCHAR(50) NOT NULL,
+    provider_gender VARCHAR(2) NOT NULL,
+    provider_phoneno VARCHAR(13) NOT NULL,
+    provider_country VARCHAR(20) NOT NULL,
+    provider_zipcode BIGINT(8) NOT NULL,
+    provider_city VARCHAR(30) NOT NULL,
+    is_deleted INT DEFAULT 0,
+    provider_image BLOB
+);
+
+12)upcoming order for provider table : 
+
+
+CREATE TABLE upcoming_order_for_provider (
+    booking_id INT NOT NULL,
+    user_name VARCHAR(25),
+    user_address LONGBLOB,
+    delivery_date DATE,
+    commission_rate FLOAT,
+    revenue_amount FLOAT,
+    status INT,
+    PRIMARY KEY (booking_id),
+    FOREIGN KEY (booking_id) REFERENCES booking(booking_id)
+);
+
+
+13)all orders for provider table : 
+
+CREATE TABLE all_orders_for_provider (
+    order_id INT NOT NULL,
+    user_name VARCHAR(25),
+    user_address LONGBLOB,
+    delivery_date DATE,
+    commission_rate FLOAT,
+    revenue_amount FLOAT,
+    status INT,
+    PRIMARY KEY (order_id),
+    FOREIGN KEY (order_id) REFERENCES booking(booking_id)
+);
+
+14)bank details table :
+
+CREATE TABLE bank_details (
+    provider_id INT NOT NULL,
+    bank_name VARCHAR(50),
+    account_no INT,
+    ifsc_code VARCHAR(20),
+    is_available INT DEFAULT 0,
+    PRIMARY KEY (provider_id),
+    FOREIGN KEY (provider_id) REFERENCES provider(provider_id)
+);
+
+15)provider support table : 
+
+CREATE TABLE provider_support (
+    support_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    booking_id INT NOT NULL,
+    support_type VARCHAR(25),
+    description VARCHAR(200),
+    is_resolved INT
+);
+
+16)subcategory details for admin :
+
+CREATE TABLE subcategory_details_for_admin (
+    provider_id INT NOT NULL,
+    subcategory_1 VARCHAR(20),
+    subcategory_2 VARCHAR(20),
+    subcategory_3 VARCHAR(20),
+    subcategory_4 VARCHAR(20),
+    FOREIGN KEY (provider_id) REFERENCES provider(provider_id)
+);
