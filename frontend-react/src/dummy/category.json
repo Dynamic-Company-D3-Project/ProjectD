@@ -1,46 +1,48 @@
-[
-  {
-    "category_name": "Pest Control",
-    "description": "Pest Control Services"
-  },
-  {
-    "category_name": "Electrician",
-    "description": "Electrical Services"
-  },
-  {
-    "category_name": "Plumber",
-    "description": "Plumbing Services"
-  },
-  {
-    "category_name": "Carpenter",
-    "description": "Carpentry Services"
-  },
-  {
-    "category_name": "Installation",
-    "description": "Installation Services"
-  },
-  {
-    "category_name": "Home Salon",
-    "description": "Home Salon Services"
-  },
-  {
-    "category_name": "Packing and Moving",
-    "description": "Packing and Moving Services"
-  },
-  {
-    "category_name": "Painting",
-    "description": "Painting Services"
-  },
-  {
-    "category_name": "Home Repair",
-    "description": "Home Repair Services"
-  },
-  {
-    "category_name": "Food Making",
-    "description": "Food Making Services (e.g., Catering)"
-  },
-  {
-    "category_name": "Cleaning",
-    "description": "Cleaning Services"
-  }
-]
+{
+  "category": [
+    {
+      "category_name": "Pest Control",
+      "description": "Pest Control Services"
+    },
+    {
+      "category_name": "Electrician",
+      "description": "Electrical Services"
+    },
+    {
+      "category_name": "Plumber",
+      "description": "Plumbing Services"
+    },
+    {
+      "category_name": "Carpenter",
+      "description": "Carpentry Services"
+    },
+    {
+      "category_name": "Installation",
+      "description": "Installation Services"
+    },
+    {
+      "category_name": "Home Salon",
+      "description": "Home Salon Services"
+    },
+    {
+      "category_name": "Packing and Moving",
+      "description": "Packing and Moving Services"
+    },
+    {
+      "category_name": "Painting",
+      "description": "Painting Services"
+    },
+    {
+      "category_name": "Home Repair",
+      "description": "Home Repair Services"
+    },
+    {
+      "category_name": "Food Making",
+      "description": "Food Making Services (e.g., Catering)"
+    },
+    {
+      "category_name": "Cleaning",
+      "description": "Cleaning Services"
+    }
+  ]
+}
