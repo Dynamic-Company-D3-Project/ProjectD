@@ -1,3 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#full {
+  background-color: aqua;
+}
+.footer--pin {
+  position: relative;
+  left: 0;
+  bottom: 0;
+}
+
+.categoryHeading {
+  color: black;
+  font-size: xx-large;
+}
+
+.containerWrap {
+  display: flex;
+  flex-grow: 4;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-container {
+  min-height: calc(100vh - 280px);
+}

@@ -1,12 +1,15 @@
-import logo from "./logo.svg";
+import Home from "./pages/Home";
 import "./App.css";
-import NavbarVertical from "./components/NavbarVertical";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <div>
-      <Routes></Routes>
+      <Routes>
+        <Route path={"/"} element={<Home />} />
+        <Route path={"/services"} element={<Home />} />
+        {/* <Route path={"/"+config.domain+"/signup/password"}  */}
+      </Routes>
     </div>
   );
 }
