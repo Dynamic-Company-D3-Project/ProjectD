@@ -1,14 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
-import NavbarVertical from './components/NavbarVertical'
+
+import Home from "./pages/Home";
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-<div>
-	<h1>Hi This is frontend react application </h1>  
-	<NavbarVertical/>
-</div>
-);
+    <div>
+      <Routes>
+        <Route path={"/"} element={<Home />} />
+        <Route path={"/services"} element={<Home />} />
+        {/* <Route path={"/"+config.domain+"/signup/password"}  */}
+      </Routes>
+    </div>
+  );
 }
 
 export default App;
