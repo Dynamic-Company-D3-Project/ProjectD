@@ -2,6 +2,7 @@ import Home from "./pages/Home";
 import "./App.css";
 import RegisterUser from "./pages/RegisterUser";
 import { Route, Routes } from "react-router-dom";
+
 import LoginUser from "./pages/LoginUser";
 import ForgotPassword from "./pages/ForgotPassword";
 import Category from "./pages/Category";

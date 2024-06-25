@@ -1,0 +1,92 @@
+[
+    {
+        "bookingId": "HS001",
+        "service": "Plumbing",
+        "rate": 80.00,
+        "date": "2024-06-18",
+        "time": "09:00 AM",
+        "providerId": "HP2001",
+        "status": "Completed"
+    },
+    {
+        "bookingId": "HS002",
+        "service": "Electrical Repair",
+        "rate": 100.00,
+        "date": "2024-06-18",
+        "time": "10:30 AM",
+        "providerId": "HP2002",
+        "status": "Cancelled"
+    },
+    {
+        "bookingId": "HS003",
+        "service": "House Cleaning",
+        "rate": 150.00,
+        "date": "2024-06-18",
+        "time": "12:00 PM",
+        "providerId": "HP2003",
+        "status": "Completed"
+    },
+    {
+        "bookingId": "HS004",
+        "service": "Pest Control",
+        "rate": 120.00,
+        "date": "2024-06-18",
+        "time": "02:00 PM",
+        "providerId": "HP2004",
+        "status": "Cancelled"
+    },
+    {
+        "bookingId": "HS005",
+        "service": "Carpet Cleaning",
+        "rate": 90.00,
+        "date": "2024-06-18",
+        "time": "03:30 PM",
+        "providerId": "HP2005",
+        "status": "Completed"
+    },
+    {
+        "bookingId": "HS006",
+        "service": "Gardening",
+        "rate": 70.00,
+        "date": "2024-06-18",
+        "time": "05:00 PM",
+        "providerId": "HP2006",
+        "status": "Completed"
+    },
+    {
+        "bookingId": "HS007",
+        "service": "Air Conditioner Repair",
+        "rate": 85.00,
+        "date": "2024-06-18",
+        "time": "06:30 PM",
+        "providerId": "HP2007",
+        "status": "Cancelled"
+    },
+    {
+        "bookingId": "HS008",
+        "service": "Furniture Assembly",
+        "rate": 50.00,
+        "date": "2024-06-18",
+        "time": "08:00 AM",
+        "providerId": "HP2008",
+        "status": "Completed"
+    },
+    {
+        "bookingId": "HS009",
+        "service": "Home Security Installation",
+        "rate": 200.00,
+        "date": "2024-06-18",
+        "time": "09:30 AM",
+        "providerId": "HP2009",
+        "status": "Completed"
+    },
+    {
+        "bookingId": "HS010",
+        "service": "Window Cleaning",
+        "rate": 60.00,
+        "date": "2024-06-18",
+        "time": "11:00 AM",
+        "providerId": "HP2010",
+        "status": "Cancelled"
+    }
+]
