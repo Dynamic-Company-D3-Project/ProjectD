@@ -1,0 +1,90 @@
+import AdminNavBar from '../components/AdminNavBar';
+import NavbarVertical from '../components/NavbarVerticalAdmin'
+import { Link , useNavigate } from "react-router-dom";
+import PendingOrdersList from "../Dummy/PendingOrdersList.json"
+import { useState } from 'react';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
+function PendingOrders(){
+    const [orders , setOrders] = useState(PendingOrdersList)
+    const OnDelete = (index)=>{
+        orders.splice(index,1)
+        setOrders([...orders])
+     }    
+    const naviage = useNavigate()
+    const onAssign = ()=>{
+        naviage('/PendingCardPage')
+    }
+    return(
+        <div >
+            <AdminNavBar />
+            <div className='row'>
+                <div className='col-2'>
+                <NavbarVertical />
+                </div>
+                <div className='col-10'>
+            <h2 className='page-header' style={{fontWeight:"bold", fontSize:30}}>Pending Orders</h2>
+            <div className='mt-3'>
+                {orders.length==0 && ( 
+                  <h3 style={{textAlign:'center', color:'red'}}>There are no Pending Orders !!</h3>
+                )}
+            {orders.length > 0 &&(
+             <div className='row'>
+                        <div className='col-10'></div>
+                        <div className='col-1'>
+                        <button className="btn btn-success bt-sm me-2"><span class="bi-check"></span></button>
+                        <h6>Assign</h6>
+                        </div>
+                        <div className='col-1'>
+                        <button className="btn btn-danger bt-sm"><span class="bi-radioactive"></span></button>
+                        <h6>Reject</h6>
+                        </div>
+             </div>
+             )}
+             {orders.length >0 &&(
+                    <table className='table table-striped table-bordered shadow-xl'>
+                    <thead style={{fontSize:20}}>
+                        <tr>
+                            <th>Booking Id</th>
+                            <th>User Id</th>
+                            <th>User Address</th>
+                            <th>Gender</th>
+                            <th>Sub Catagory</th>
+                            <th>Provider Id</th>
+                            <th>Action</th>
+                            <th>Booking Date & Time</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                {orders.map((order)=>{
+                    return <tr>
+                    <td>{order['bookingID']}</td>
+                    <td>{order['userID']}</td>
+                    <td>{order['userAddress']}</td>
+                    <td>{order['gender']}</td>
+                    <td>{order['subCategory']}</td>
+                    <td>{order['providerID']}</td>
+                    <td>
+                        <button onClick={()=>{
+                            onAssign()
+                        }} className="btn btn-success bt-sm me-2"><span class="bi-check"></span></button>
+                        <button onClick={()=>{
+                            OnDelete(order['bookingId'])
+                        }} className="btn btn-danger bt-sm"><span class="bi-radioactive"></span></button>
+                    </td>
+                    <td>{order['BookingDateAndTime']}</td>
+                    </tr>
+                })}
+                </tbody>
+                </table>
+                    )}
+                </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+export default PendingOrders
+
+
+
