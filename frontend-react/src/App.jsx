@@ -23,6 +23,11 @@ import AdminUserDetails from "./Admin/pages/AdminUserDetails";
 import AdminOrders from "./Admin/pages/AdminOrders";
 import AdminCategory from "./Admin/pages/AdminCategory";
 import AdminProviderList from "./Admin/pages/AdminProviderList";
+import ProviderLogin from "./Provider/pages/ProviderLogin";
+import ProviderDashboard from "./Provider/pages/ProviderDashboard";
+import ProviderSupport from "./Provider/pages/ProviderSupport";
+import ProviderOrders from "./Provider/pages/ProviderOrders";
+import ProviderDetails from "./Provider/pages/ProviderDetails";
 
 function App() {
   return (
@@ -52,6 +57,13 @@ function App() {
         <Route path={"/admin/category"} element={<AdminCategory />} />
         <Route path={"/admin/list-provider"} element={<AdminProviderList />} />
         {/* <Route path={"/admin/support"} element={<AdminSupport />} /> */}
+
+        {/* Provider Routes */}
+        <Route path={"/provider/login"} element={<ProviderLogin />} />
+        <Route path={"/provider/dashboard"} element={<ProviderDashboard />} />
+        <Route path={"/provider/support"} element={<ProviderSupport />} />
+        <Route path={"/provider/orders"} element={<ProviderOrders />} />
+        <Route path={"/provider/detail"} element={<ProviderDetails />} />
       </Routes>
     </div>
   );
