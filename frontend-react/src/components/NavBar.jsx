@@ -5,11 +5,11 @@ function NavBar() {
     <div>
       <div
         className="navbar bg-base-100"
-        style={{ backgroundColor: "#FFEEA9" }}
+        style={{ backgroundColor: "#FFBF78" }}
       >
         <div className="flex-none">
           <a className="btn btn-ghost text-xl" href={"/"}>
-            LOGO
+            QUIKEASY
           </a>
         </div>
         <div className="flex-1">
