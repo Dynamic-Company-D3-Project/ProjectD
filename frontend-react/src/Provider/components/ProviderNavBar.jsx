@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function AdminNavBar() {
+function ProviderNavBar() {
   return (
     <div className="navbar bg-base-100" style={{ backgroundColor: "#FFBF78" }}>
       <div className="flex-1">
@@ -19,7 +19,7 @@ function AdminNavBar() {
       </div>
       <div className="flex-none gap-2 not-italic hover:italic text-2xl">
         <div className="text-blue-600">
-          <strong>Admin Name</strong>
+          <strong>Provider Name</strong>
         </div>
         <div className="dropdown dropdown-end">
           <div
@@ -39,12 +39,13 @@ function AdminNavBar() {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <li>
-              <Link to={"/admin/dashboard"} className="justify-between">
+              <Link to={"/provider/dashboard"} className="justify-between">
                 Dashboard
               </Link>
             </li>
+
             <li>
-              <Link to={"/admin/login"}>Logout</Link>
+              <Link to={"/provider/login"}>Logout</Link>
             </li>
           </ul>
         </div>
@@ -53,4 +54,4 @@ function AdminNavBar() {
   );
 }
 
-export default AdminNavBar;
+export default ProviderNavBar;
