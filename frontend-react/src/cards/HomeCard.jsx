@@ -2,7 +2,7 @@ import { Row, Col } from "react-bootstrap";
 
 export function HomeCategoryCard({ category_name, description }) {
   return (
-    <a href={"/" + category_name}>
+    <a href={"/services/" + category_name}>
       <div
         className="card card-compact bg-base-100 shadow-xl"
         style={{ height: "250px", width: "250px", margin: "10px" }}
@@ -26,7 +26,7 @@ export function HomeSubCategoryCard({ category, subCategoryData }) {
       {subCategoryData.slice(0, 4).map((sub) => {
         return (
           <Col style={{ paddingLeft: "0px " }}>
-            <a href={"/" + category + "/" + sub}>
+            <a href={"/services/" + category + "/" + sub}>
               <div
                 className="card card-compact bg-base-100 shadow-xl"
                 style={{
