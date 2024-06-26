@@ -1,3 +1,4 @@
+import { Row, Col } from "react-bootstrap";
 export function SearchBar() {
   return (
     <div className="max-w-md mx-auto">
@@ -27,5 +28,22 @@ export function SearchBar() {
         />
       </div>
     </div>
+  );
+}
+
+export function CategorySearchBar() {
+  return (
+    <Row className="d-flex justify-content-center">
+      <Col xs={12} sm={10} md={8} lg={6} xl={5}>
+        <div className="d-flex">
+          <input
+            className="form-control me-1"
+            type="text"
+            placeholder="Search for services"
+          />
+          <button className="btn btn-primary">Search</button>
+        </div>
+      </Col>
+    </Row>
   );
 }
