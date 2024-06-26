@@ -17,8 +17,8 @@ function UserSupport()
                 </div>
                 <div className='col-10'>
                 <div className='row d-flex justify-content-end mr-3'>
-                    <div className='col-2 text-center '><Link to="/ProviderSupport" className="rounded-pill mt-3 mx-auto d-block bg-info margin:20%">Provider Support</Link></div>
-                    <div className='col-2 text-center'><Link to="/UserSupport" className="rounded-pill mt-3 mx-auto d-block bg-info">User Support</Link></div>
+                    <div className='col-2 text-center '><Link to="/admin/support-provider" className="rounded-pill mt-3 mx-auto d-block bg-info margin:20%">Provider Support</Link></div>
+                    <div className='col-2 text-center'><Link to="/admin/support-user" className="rounded-pill mt-3 mx-auto d-block bg-info">User Support</Link></div>
                 </div>
                 <h2 className='page-header' style={{fontWeight:"bold", fontSize:30}}>Users Support</h2>
              <h4 className='mt-3' style={{fontWeight:"bold", fontSize:25}}>Pending Tickets</h4>

@@ -31,6 +31,11 @@ import ProviderDetails from "./Provider/pages/ProviderDetails";
 import ProductDetails from "./pages/ProductDetails";
 import Payment from "./pages/Payment";
 import PayNow from "./pages/PayNow";
+import OngoingOrders from "./Admin/pages/OngoingOrders";
+import UserSupport from "./Admin/pages/UserSupport";
+import PendingCardPage from "./Admin/pages/PendingCardPage";
+import PendingOrders from "./Admin/pages/PendingOrders";
+import AdminProviderSupport from "./Admin/pages/AdminProviderSupport";
 
 function App() {
   return (
@@ -65,6 +70,14 @@ function App() {
         <Route path={"/admin/login"} element={<AdminLogin />} />
         <Route path={"/admin/category"} element={<AdminCategory />} />
         <Route path={"/admin/list-provider"} element={<AdminProviderList />} />
+        <Route path={"/admin/orders-ongoing"} element={<OngoingOrders/>}/>
+        <Route path={"/admin/orders-pending"} element={<PendingOrders/>}/>
+        <Route path={"/admin/support-user"} element={<UserSupport/>}/>
+        <Route path={"/admin/support-provider"} element={<AdminProviderSupport/>}/>
+        <Route path={"/PendingCardPage"} element={<PendingCardPage/>}/>
+
+
+
         {/* <Route path={"/admin/support"} element={<AdminSupport />} /> */}
 
         {/* Provider Routes */}

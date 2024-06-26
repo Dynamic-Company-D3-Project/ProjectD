@@ -13,56 +13,56 @@ function NavbarVerticalAdmin(){
 <br />
 <br />
 <li className ="nav-item text-center">
-<Link to="/Dashboard">Dashboard
+<Link to="/admin/dashboard">Dashboard
 </Link>
 </li>
 <br />
 <br />
 <li className ="nav-item text-center" >
-<Link to="/OngoingOrders">Ongoing Orders
+<Link to="/admin/orders-ongoing">Ongoing Orders
 </Link>
 </li>
 <br />
 <br />
 <li className ="nav-item text-center ">
-<Link  to="/PendingOrders">Pending Orders
+<Link  to="/admin/orders-pending">Pending Orders
 </Link>
 </li>
 <br />
 <br />
 <li className ="nav-item text-center">
-<Link to="/AllOrders">All Orders
+<Link to="/admin/orders">All Orders
 </Link>
 </li>
 <br />
 <br />
 <li className ="nav-item text-center">
-<Link to="/SubCatagory">Sub Catagory
+<Link to="/admin/category">Sub Catagory
 </Link>
 </li>
 <br />
 <br />
 <li className ="nav-item text-center">
-<Link to="/ProviderList">Providers List
+<Link to="/admin/list-provider">Providers List
 </Link>
 </li>
 <br />
 <br />
 <li className ="nav-item text-center">
-<Link to="/UserInfo">User Info
+<Link to="/admin/details-user">User Info
 </Link>
 </li>
 <br />
 <br />
 <li className ="nav-item text-center">
-<Link to="/ProviderSupport">Support
+<Link to="/admin/support-provider">Support
 </Link>
 </li>
 <br />
 <br />
 <br />
 <li className ="nav-item text-center">
-<Link to="/Logout">Logout
+<Link to="/admin/login">Logout
 </Link>
 </li>
 </ul>
