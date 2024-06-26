@@ -344,3 +344,6 @@ a.sidebar-link {
 }
 
 /* Using !important ensures that these styles take precedence over any other conflicting styles. */
+.read-only-star-rating p {
+  display: none;
+}
