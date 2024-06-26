@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import '../../App.css'
 
-function AdminSidebar(){
+function NavbarVerticalAdmin(){
     return(
 <div >
 <nav className ="navbar bg-light">
@@ -71,4 +71,4 @@ function AdminSidebar(){
     )
 }
 
-export default AdminSidebar
+export default NavbarVerticalAdmin
