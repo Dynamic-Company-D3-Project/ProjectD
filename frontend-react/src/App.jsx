@@ -28,6 +28,9 @@ import ProviderDashboard from "./Provider/pages/ProviderDashboard";
 import ProviderSupport from "./Provider/pages/ProviderSupport";
 import ProviderOrders from "./Provider/pages/ProviderOrders";
 import ProviderDetails from "./Provider/pages/ProviderDetails";
+import ProductDetails from "./pages/ProductDetails";
+import Payment from "./pages/Payment";
+import PayNow from "./pages/PayNow";
 
 function App() {
   return (
@@ -48,6 +51,12 @@ function App() {
         <Route path={"/bookings/past"} element={<PastBookings />} />
         <Route path={"/address"} element={<Addresses />} />
         <Route path={"/support"} element={<Support />} />
+        <Route
+          path={"/services/:category/:subcategory"}
+          element={<ProductDetails />}
+        />
+        <Route path={"/payment"} element={<Payment />} />
+        <Route path={"/paynow"} element={<PayNow />} />
         {/* Admin routes */}
 
         <Route path={"/admin/dashboard"} element={<AdminDashboard />} />
