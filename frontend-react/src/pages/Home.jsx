@@ -75,6 +75,7 @@ function Home() {
                     }}
                   >
                     <Link
+                      to={`/services/${mapData.category}`}
                       className="btn btn-outline btn-accent"
                       style={{ marginRight: "7rem" }}
                     >
