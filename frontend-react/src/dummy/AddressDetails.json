@@ -1,0 +1,30 @@
+[
+    {
+        "addressType": "Home",
+        "streetName": "123 MG Road",
+        "Suite": "Flat 5A",
+        "Country": "India",
+        "State": "Maharashtra",
+        "City": "Mumbai",
+        "zip": "400001"
+      },
+      {
+        "addressType": "Work",
+        "streetName": "456 FC Road",
+        "Suite": "Office 10B",
+        "Country": "India",
+        "State": "Maharashtra",
+        "City": "Pune",
+        "zip": "411005"
+      },
+      {
+        "addressType": "Other",
+        "streetName": "789 JM Road",
+        "Suite": "Bungalow 7",
+        "Country": "India",
+        "State": "Maharashtra",
+        "City": "Nagpur",
+        "zip": "440001"
+      }
+
+]

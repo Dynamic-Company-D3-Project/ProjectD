@@ -1,0 +1,211 @@
+{
+  "map": [
+    {
+      "category": "Home Salon",
+      "description": "Get pampered in the comfort of your own home with our professional salon services.",
+      "services": [
+        {
+          "text": "Pedicure",
+          "price": "300",
+          "description": "Relaxing foot treatment that removes dead skin and keeps your feet soft and healthy."
+        },
+        {
+          "text": "Manicure",
+          "price": "250",
+          "description": "Keeps your hands looking neat and polished with our expert manicure services."
+        },
+        {
+          "text": "Haircut",
+          "price": "200",
+          "description": "Get a stylish haircut from the comfort of your home by our skilled barbers or stylists."
+        },
+        {
+          "text": "Facial",
+          "price": "500",
+          "description": "Rejuvenate your skin with our luxurious facial treatments."
+        },
+        {
+          "text": "Waxing",
+          "price": "400",
+          "description": "Remove unwanted hair for a smooth and flawless look."
+        }
+      ]
+    },
+    {
+      "category": "Home Cleaning",
+      "description": "Let us take care of the cleaning so you can relax and enjoy your free time.",
+      "services": [
+        {
+          "text": "Full Home Deep Cleaning",
+          "price": "1500",
+          "description": "Thorough cleaning of your entire home from top to bottom."
+        },
+        {
+          "text": "Kitchen Cleaning",
+          "price": "800",
+          "description": "Get rid of grease, grime, and stains in your kitchen."
+        },
+        {
+          "text": "Bathroom Cleaning",
+          "price": "500",
+          "description": "Make your bathroom sparkle with our professional cleaning services."
+        },
+        {
+          "text": "Sofa Cleaning",
+          "price": "600",
+          "description": "Breathe new life into your sofa with our deep cleaning process."
+        },
+        {
+          "text": "Carpet Cleaning",
+          "price": "700",
+          "description": "Remove dirt, dust, and allergens from your carpets for a healthier home environment."
+        }
+      ]
+    },
+    {
+      "category": "Appliance Repair",
+      "description": "We can fix your broken appliances to get them working like new again.",
+      "services": [
+        {
+          "text": "Air Conditioner Repair",
+          "price": "500",
+          "description": "Repair your air conditioner to keep your home cool and comfortable."
+        },
+        {
+          "text": "Refrigerator Repair",
+          "price": "400",
+          "description": "Get your refrigerator back in working order to keep your food fresh."
+        },
+        {
+          "text": "Washing Machine Repair",
+          "price": "450",
+          "description": "Don't let a broken washing machine stop you from doing laundry. We can fix it!"
+        },
+        {
+          "text": "Microwave Repair",
+          "price": "300",
+          "description": "Get your microwave working again for quick and easy meals."
+        },
+        {
+          "text": "TV Repair",
+          "price": "350",
+          "description": "Enjoy your favorite shows without interruption with our TV repair services."
+        }
+      ]
+    },
+    {
+      "category": "Plumbing",
+      "description": "We can fix your leaky faucets, clogged drains, and other plumbing problems.",
+      "services": [
+        {
+          "text": "Tap Repair",
+          "price": "200",
+          "description": "Fix a leaky or dripping tap to save water and money."
+        },
+        {
+          "text": "Drain Cleaning",
+          "price": "300",
+          "description": "Clear clogged drains to prevent backups and overflows."
+        },
+        {
+          "text": "Leakage Repair",
+          "price": "250",
+          "description": "We can fix leaks to prevent water damage in your home."
+        },
+        {
+          "text": "Toilet Repair",
+          "price": "400",
+          "description": "We can fix your toilet"
+        }
+      ]
+    },
+    {
+      "category": "Pest Control",
+      "description": "Protect your home and family from unwanted pests.",
+      "services": [
+        {
+          "text": "Cockroach Control",
+          "price": "600",
+          "description": "Effective treatment to eliminate cockroaches from your home."
+        },
+        {
+          "text": "Termite Control",
+          "price": "1000",
+          "description": "Protect your property from termite damage with our professional termite control services."
+        },
+        {
+          "text": "Bed Bug Control",
+          "price": "800",
+          "description": "Get rid of bed bugs and prevent them from coming back."
+        },
+        {
+          "text": "Mosquito Control",
+          "price": "500",
+          "description": "Keep your outdoor space mosquito-free and enjoy your evenings without worry."
+        },
+        {
+          "text": "Rodent Control",
+          "price": "700",
+          "description": "Eliminate rodents from your home and prevent future infestations."
+        }
+      ]
+    },
+    {
+      "category": "Electrician",
+      "description": "We can fix your electrical problems and ensure your home is safe.",
+      "services": [
+        {
+          "text": "Electrical Outlet Repair",
+          "price": "200",
+          "description": "Fix faulty outlets to ensure safe and reliable power."
+        },
+        {
+          "text": "Light Fixture Installation",
+          "price": "150",
+          "description": "Install new light fixtures to brighten up your home."
+        },
+        {
+          "text": "Ceiling Fan Installation",
+          "price": "250",
+          "description": "Improve air circulation and add style with a new ceiling fan."
+        },
+        {
+          "text": "Electrical Panel Upgrade",
+          "price": "1200",
+          "description": "Ensure your electrical system can handle your home's needs with an upgrade."
+        },
+        {
+          "text": "Wiring Repair",
+          "price": "400",
+          "description": "Fix damaged wiring to prevent electrical hazards."
+        }
+      ]
+    },
+    {
+      "category": "Plumber",
+      "description": "We can fix your leaky faucets, clogged drains, and other plumbing problems.",
+      "services": [
+        {
+          "text": "Faucet Repair",
+          "price": "200",
+          "description": "Fix a leaky or dripping faucet to save water and money."
+        },
+        {
+          "text": "Drain Cleaning",
+          "price": "300",
+          "description": "Clear clogged drains to prevent backups and overflows."
+        },
+        {
+          "text": "Toilet Repair",
+          "price": "400",
+          "description": "Fix a running or leaking toilet to save water and money."
+        },
+        {
+          "text": "Garbage Disposal Repair",
+          "price": "250",
+          "description": "Get your garbage disposal working again for easy food waste disposal."
+        }
+      ]
+    }
+  ]
+}
