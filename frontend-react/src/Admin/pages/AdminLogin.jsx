@@ -35,10 +35,12 @@ const AdminLogin = () => {
               placeholder="Enter password"
             />
           </div>
-          <div className="mb-3 d-grid mx-auto col-6">
-            <button className="btn btn-primary">
-              <span className="text-2xl">Login</span>{" "}
-            </button>
+          <div className="mb-3 d-grid mx-auto col-6 justify-content-center">
+            <Link to={"/admin/dashboard"}>
+              <button className="btn btn-primary">
+                <span className="text-2xl">Login</span>{" "}
+              </button>
+            </Link>
           </div>
         </div>
       </div>
