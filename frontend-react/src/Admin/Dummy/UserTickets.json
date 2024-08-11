@@ -1,0 +1,41 @@
+[
+    {
+        "TicketId": "T001",
+        "CustomerId": "C001",
+        "BookingId": "B001",
+        "SubCategory": "Plumbing",
+        "Description": "Fix leaking kitchen sink"
+      }
+      ,
+      {
+        "TicketId": "T002",
+        "CustomerId": "C002",
+        "BookingId": "B002",
+        "SubCategory": "Electrical",
+        "Description": "Install new ceiling fan"
+      }
+      ,
+      {
+        "TicketId": "T003",
+        "CustomerId": "C003",
+        "BookingId": "B003",
+        "SubCategory": "Cleaning",
+        "Description": "Deep clean living room carpet"
+      }
+      ,
+      {
+        "TicketId": "T004",
+        "CustomerId": "C004",
+        "BookingId": "B004",
+        "SubCategory": "Painting",
+        "Description": "Paint bedroom walls light blue"
+      }
+      ,
+      {
+        "TicketId": "T005",
+        "CustomerId": "C005",
+        "BookingId": "B005",
+        "SubCategory": "Pest Control",
+        "Description": "Spray for ants in the kitchen"
+      }
+]
