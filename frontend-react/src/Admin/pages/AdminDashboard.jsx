@@ -1,6 +1,6 @@
 import React from "react";
 import AdminCards from "../cards/AdminCards";
-import AdminChart from "../cards/AdminChart";
+//import AdminChart from "../cards/AdminChart";
 import AdminNavBar from "../components/AdminNavBar";
 import AdminSidebar from "../components/AdminSidebar";
 import { Container, Row, Col } from "react-bootstrap";
@@ -48,9 +48,7 @@ const AdminDashboard = () => {
                   </Col>
                 </Row>
                 <Row>
-                  <Col>
-                    <AdminChart />
-                  </Col>
+                  <Col>{/* <AdminChart /> */}</Col>
                 </Row>
               </Container>
             </Col>
