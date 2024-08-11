@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { SPRING_URL } from "../services/Service";
+import axios from "axios";
 
 function Home() {
   let [category, setCategory] = useState([]);
@@ -15,12 +17,28 @@ function Home() {
     loadCategories();
   }, []);
 
+  // const loadCategories = async () => {
+  //   //axios request to get categories
+  //   let data = await import("../dummy/category.json");
+  //   let subData = await import("../dummy/subCategory.json");
+  //   setSubCategory(subData["map"]);
+  //   setCategory(data["category"]);
+  // };
   const loadCategories = async () => {
     //axios request to get categories
-    let data = await import("../dummy/category.json");
-    let subData = await import("../dummy/subCategory.json");
-    setSubCategory(subData["map"]);
-    setCategory(data["category"]);
+    // let data = await import("../dummy/category.json");
+    // let subData = await import("../dummy/subCategory.json");
+    // setSubCategory(subData["map"]);
+    // setCategory(data["category"]);
+    try {
+      let categoryResponse = await axios.get(SPRING_URL + '/catgeory/categoryList');
+      let subCategoryResponse = await axios.get(SPRING_URL+'/catgeory/categoryListWithSubcategory')
+      console.log(subCategoryResponse.data);
+      setCategory(categoryResponse.data);
+      setSubCategory(subCategoryResponse.data);
+    } catch (error) {
+      console.error("There was an error fetching the data!", error);
+    }
   };
 
   return (
@@ -51,7 +69,7 @@ function Home() {
           {category.slice(0, 8).map((cat) => {
             return (
               <HomeCategoryCard
-                category_name={cat.category_name}
+                category_name={cat.name}
                 description={cat.description}
               />
             );
@@ -67,7 +85,7 @@ function Home() {
             return (
               <Container>
                 <Row>
-                  <Col className="categoryHeading">{mapData.category}</Col>
+                  <Col className="categoryHeading">{mapData.name}</Col>
                   <Col
                     style={{
                       display: "inline-flex",
@@ -85,8 +103,8 @@ function Home() {
                 </Row>
 
                 <HomeSubCategoryCard
-                  category={mapData.category}
-                  subCategoryData={mapData.subCategory}
+                  category={mapData.name}
+                  subCategoryData={mapData.subCategories}
                 />
               </Container>
             );
