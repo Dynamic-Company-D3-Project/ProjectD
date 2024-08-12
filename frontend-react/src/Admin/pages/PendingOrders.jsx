@@ -2,11 +2,13 @@ import AdminNavBar from '../components/AdminNavBar';
 import NavbarVertical from '../components/NavbarVerticalAdmin'
 import { Link , useNavigate } from "react-router-dom";
 import PendingOrdersList from "../Dummy/PendingOrdersList.json"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import axios from 'axios';
+import config  from "../../config";
 
 function PendingOrders(){
-    const [orders , setOrders] = useState(PendingOrdersList)
+    const [orders , setOrders] = useState([""])
     const OnDelete = (index)=>{
         orders.splice(index,1)
         setOrders([...orders])
@@ -15,6 +17,20 @@ function PendingOrders(){
     const onAssign = ()=>{
         naviage('/PendingCardPage')
     }
+
+    useEffect(() => {
+        axios.get(config.dotNetApi+"Admin/getOrders/pending")
+            .then(response => {
+                setOrders(response.data.result);
+                console.log(response.data)
+            })
+            .catch(error => {
+              console.log(error)
+               
+            });
+    }, []);
+         
+       
     return(
         <div >
             <AdminNavBar />
@@ -50,7 +66,7 @@ function PendingOrders(){
                             <th>User Address</th>
                             <th>Gender</th>
                             <th>Sub Catagory</th>
-                            <th>Provider Id</th>
+                       
                             <th>Action</th>
                             <th>Booking Date & Time</th>
                         </tr>
@@ -58,12 +74,12 @@ function PendingOrders(){
                 <tbody>
                 {orders.map((order)=>{
                     return <tr>
-                    <td>{order['bookingID']}</td>
-                    <td>{order['userID']}</td>
+                    <td>{order['bookingId']}</td>
+                    <td>{order['userId']}</td>
                     <td>{order['userAddress']}</td>
                     <td>{order['gender']}</td>
                     <td>{order['subCategory']}</td>
-                    <td>{order['providerID']}</td>
+                    
                     <td>
                         <button onClick={()=>{
                             onAssign()
@@ -72,7 +88,7 @@ function PendingOrders(){
                             OnDelete(order['bookingId'])
                         }} className="btn btn-danger bt-sm"><span class="bi-radioactive"></span></button>
                     </td>
-                    <td>{order['BookingDateAndTime']}</td>
+                    <td>{order['bookingDate']} {order['bookingTime']}</td>
                     </tr>
                 })}
                 </tbody>
