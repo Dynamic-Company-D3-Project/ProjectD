@@ -6,6 +6,8 @@ import SubCategoryHorizontalCard from "../cards/SubCategoryHorizontalCard";
 import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { SPRING_URL } from "../services/Service";
+import NavBarUser from "../components/NavBarUser";
+
 function Category() {
   let [subCategory, setSubCategories] = useState([]);
   const { id } = useParams();
@@ -67,9 +69,11 @@ function Category() {
   //     </div>
   //   </div>
   // );
+
+  const token = sessionStorage.getItem('authToken');
   return (
     <div className="page-container">
-      <NavBar />
+      {token ? <NavBarUser /> : <NavBar />}
       <div className="content-container container" style={{ display: "block", padding: "2em 5em 0" }}>
         <div className="mb-2 p-4" style={{ display: "block" }}>
           <h1 className="categoryHeading">{subCategory.name}</h1>

@@ -6,6 +6,7 @@ import { useState,useEffect } from "react";
 import axios from "axios";
 import { SPRING_URL } from "../services/Service";
 import { ToastContainer, toast } from 'react-toastify';
+import NavBarUser from "../components/NavBarUser";
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function ProductDetails() {
@@ -21,7 +22,6 @@ export default function ProductDetails() {
     let subCategoryDetails = await axios.get(`${SPRING_URL}/subCategory/subCategoryById/${id}`)
     console.log(subCategoryDetails.data);
     setSubCategory(subCategoryDetails.data)
-    toast.success("Product details loaded successfully!");
     }catch (error) {
       console.error("Failed to load subcategory", error);
       toast.error("Error fetching the data")
@@ -42,9 +42,10 @@ export default function ProductDetails() {
     }
     return stars;
   }
+  const token = sessionStorage.getItem('authToken');
   return (
     <div className="page-container">
-      <NavBar />
+      {token ? <NavBarUser /> : <NavBar />}
       <div className="content-container container mt-4">
         <div className="d-flex justify-content-between">
           <div className="d-flex flex-col">
@@ -90,7 +91,7 @@ export default function ProductDetails() {
                 {subCategory.rating ? getRatingStars(subCategory.rating) : null}
               </div>
               <div className="d-flex flex-col m-2">
-                <Link to={"/payment"}>
+                <Link to={`/payment/${id}`}>
                   <button
                     class="w-40 m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button"

@@ -18,10 +18,10 @@ function NavBar() {
           </Link>
         </div>
         <div className="navbar-end">
-          <Link className="btn mr-2" to={"/signup/password"}>
+          <Link className="btn mr-2" to={"/signup"}>
             Sign Up
           </Link>
-          <Link className="btn" to={"/login/email"}>
+          <Link className="btn" to={"/login"}>
             Sign In
           </Link>
         </div>

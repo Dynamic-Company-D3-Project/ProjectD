@@ -1,5 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function NavBarUser() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    sessionStorage.removeItem('authToken')
+    sessionStorage.removeItem('email')
+  }
   return (
     <div>
       <div
@@ -43,7 +48,7 @@ function NavBarUser() {
                 <a href="/cart">MyCart</a>
               </li>
               <li>
-                <Link to="/">Logout</Link>
+                <Link to="/" onClick = {handleLogout}>Logout</Link>
               </li>
             </ul>
           </div>

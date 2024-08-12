@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../components/NavBar";
 import VerticalNavbar from "../components/VerticalNavbar";
 import SubCategory from "../cards/ServicesSubCategoryCard";
 import { CategorySearchBar } from "../components/SearchBar";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import axios from "axios";
+import NavBarUser from "../components/NavBarUser";
 import { SPRING_URL } from "../services/Service";
+import NavBar from "../components/NavBar";
 import { toast } from "react-toastify";
 
 function ViewServices() {
@@ -50,9 +51,11 @@ function ViewServices() {
     return nameCategory ? nameCategory.id : null;
   }
 
+  const token = sessionStorage.getItem('authToken');
+
   return (
     <div className="page-container">
-      <Navbar />
+      {token ? <NavBarUser /> : <NavBar />}
       <div className="user-viewServices content-container">
         <div style={{ marginTop: "1rem" }}>
           <CategorySearchBar />
@@ -77,6 +80,7 @@ function ViewServices() {
                   key={index}
                   text={service.categoryName}
                   price={service.price}
+                  id = {service.id}
                 />
               ))}
             </div>
