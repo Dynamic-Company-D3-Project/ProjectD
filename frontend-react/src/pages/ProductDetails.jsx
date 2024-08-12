@@ -1,9 +1,47 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import ReviewCard from "../components/ReviewCard";
+import { useState,useEffect } from "react";
+import axios from "axios";
+import { SPRING_URL } from "../services/Service";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ProductDetails() {
+  let [subCategory, setSubCategory] = useState([])
+  const {id} = useParams();
+
+  useEffect(() => {
+    loadSubCategories();
+  },[id]);
+
+  async function loadSubCategories() {
+    try{
+    let subCategoryDetails = await axios.get(`${SPRING_URL}/subCategory/subCategoryById/${id}`)
+    console.log(subCategoryDetails.data);
+    setSubCategory(subCategoryDetails.data)
+    toast.success("Product details loaded successfully!");
+    }catch (error) {
+      console.error("Failed to load subcategory", error);
+      toast.error("Error fetching the data")
+    }
+  }
+  const getRatingStars = (rating) => {
+    let stars = [];
+    for (let i = 0; i < rating; i++) {
+      stars.push(
+        <input
+          key={i}
+          type="radio"
+          name="rating"
+          className={`mask mask-star-2 ${i <= rating ? "bg-orange-400" : "bg-gray-300"}`}
+          readOnly
+        />
+      );
+    }
+    return stars;
+  }
   return (
     <div className="page-container">
       <NavBar />
@@ -14,13 +52,13 @@ export default function ProductDetails() {
               class="w-60 h-60 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
               src="/assets/SubCategory.jpg"
             />
-            <h1 className="categoryHeading">SubCategoryName</h1>
+            <h1 className="categoryHeading pl-1">{subCategory.categoryName}</h1>
           </div>
           <div>
             <div class="container d-flex flex-col text-center justify-content-center align-items-center">
-              <div class="time text-6xl mb-4">25:30</div>{" "}
-              <div class="price  text-6xl mb-4">$2500</div>{" "}
-              <div class="rating d-flex justify-content-center">
+              {/* <div class="time text-6xl mb-4">25:30</div>{" "} */}
+              <div className="price text-6xl mb-4">₹{subCategory.price}</div>
+              {/* <div class="rating d-flex justify-content-center">
                 <input
                   type="radio"
                   name="rating-2"
@@ -47,6 +85,9 @@ export default function ProductDetails() {
                   name="rating-2"
                   class="mask mask-star-2 bg-orange-400"
                 />
+              </div> */}
+               <div className="rating d-flex justify-content-center">
+                {subCategory.rating ? getRatingStars(subCategory.rating) : null}
               </div>
               <div className="d-flex flex-col m-2">
                 <Link to={"/payment"}>
@@ -72,24 +113,7 @@ export default function ProductDetails() {
         <br></br>
         <div className="indent-0 text-wrap text-balance text-pretty">
           <h2>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam neque
-            officia minima doloremque dignissimos, sequi beatae nihil quidem
-            voluptas qui atque eveniet ducimus, repudiandae explicabo saepe.
-            Voluptatum expedita facilis at. Possimus officiis quos ducimus iure.
-            Temporibus vero praesentium est dignissimos laborum labore, animi
-            ipsam ipsa tenetur, magni mollitia rem fuga nisi. Minima porro
-            officia aliquam blanditiis id saepe vel labore. Ea fugit inventore
-            culpa dolores dolorum, voluptate, ipsum dicta beatae quod laboriosam
-            cum nemo consequatur porro quisquam fuga esse odio voluptates. Non
-            omnis impedit recusandae repellat maxime corrupti sit unde! Quam,
-            cupiditate quis, minima dolores consequatur, necessitatibus magnam
-            ipsum commodi reiciendis dicta consectetur tempore voluptas facilis
-            non deserunt. Inventore obcaecati voluptate dignissimos sunt quos
-            consectetur voluptates dolorem velit tempore eligendi. Tempora velit
-            dolor natus fugit illum. Est, repellendus. Mollitia repudiandae,
-            nemo enim doloribus possimus quam similique unde. Iure vero, rem
-            eligendi, quas, saepe voluptatum doloribus laboriosam exercitationem
-            libero deleniti maxime?
+            {subCategory.description}
           </h2>
         </div>
         <br />
