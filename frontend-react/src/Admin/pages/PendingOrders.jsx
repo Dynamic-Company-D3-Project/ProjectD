@@ -13,9 +13,12 @@ function PendingOrders(){
         orders.splice(index,1)
         setOrders([...orders])
      }    
-    const naviage = useNavigate()
-    const onAssign = ()=>{
-        naviage('/PendingCardPage')
+    const navigate = useNavigate()
+    const  onAssign = (subcatid)=>{
+        const selectedOrder = orders.find(order => order.subcategoryId === subcatid);
+    if (selectedOrder) {
+      navigate('/PendingCardPage', { state: { order: selectedOrder } });
+    }
     }
 
     useEffect(() => {
@@ -78,11 +81,11 @@ function PendingOrders(){
                     <td>{order['userId']}</td>
                     <td>{order['userAddress']}</td>
                     <td>{order['gender']}</td>
-                    <td>{order['subCategory']}</td>
+                    <td>{order['subcategoryId']}</td>
                     
                     <td>
                         <button onClick={()=>{
-                            onAssign()
+                            onAssign(order['subcategoryId'])
                         }} className="btn btn-success bt-sm me-2"><span class="bi-check"></span></button>
                         <button onClick={()=>{
                             OnDelete(order['bookingId'])
