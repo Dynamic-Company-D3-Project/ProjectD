@@ -19,7 +19,7 @@ function AdminNavBar() {
       </div>
       <div className="flex-none gap-2 not-italic hover:italic text-2xl">
         <div className="text-blue-600">
-          <strong>Admin Name</strong>
+          <strong>{JSON.parse(sessionStorage.getItem('admin')).firstName}</strong>
         </div>
         <div className="dropdown dropdown-end">
           <div
@@ -29,8 +29,8 @@ function AdminNavBar() {
           >
             <div className="w-10 rounded-full">
               <img
-                alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                alt="userimg"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRREPJU76bvshOS8kzBE-pLMIjSA4sWSFYn0Qi3afHru-fPrjwiAPx4TaVZvkB7_5Up7kg&usqp=CAU"
               />
             </div>
           </div>

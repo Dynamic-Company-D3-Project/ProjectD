@@ -2,29 +2,31 @@ import { Link, useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import ReviewCard from "../components/ReviewCard";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { SPRING_URL } from "../services/Service";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import NavBarUser from "../components/NavBarUser";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ProductDetails() {
-  let [subCategory, setSubCategory] = useState([])
-  const {id} = useParams();
+  let [subCategory, setSubCategory] = useState([]);
+  const { id } = useParams();
 
   useEffect(() => {
     loadSubCategories();
-  },[id]);
+  }, [id]);
 
   async function loadSubCategories() {
-    try{
-    let subCategoryDetails = await axios.get(`${SPRING_URL}/subCategory/subCategoryById/${id}`)
-    console.log(subCategoryDetails.data);
-    setSubCategory(subCategoryDetails.data)
-    }catch (error) {
+    try {
+      let subCategoryDetails = await axios.get(
+        `${SPRING_URL}/subCategory/subCategoryById/${id}`
+      );
+      console.log(subCategoryDetails.data);
+      setSubCategory(subCategoryDetails.data);
+    } catch (error) {
       console.error("Failed to load subcategory", error);
-      toast.error("Error fetching the data")
+      toast.error("Error fetching the data");
     }
   }
   const getRatingStars = (rating) => {
@@ -35,14 +37,16 @@ export default function ProductDetails() {
           key={i}
           type="radio"
           name="rating"
-          className={`mask mask-star-2 ${i <= rating ? "bg-orange-400" : "bg-gray-300"}`}
+          className={`mask mask-star-2 ${
+            i <= rating ? "bg-orange-400" : "bg-gray-300"
+          }`}
           readOnly
         />
       );
     }
     return stars;
-  }
-  const token = sessionStorage.getItem('authToken');
+  };
+  const token = sessionStorage.getItem("authToken");
   return (
     <div className="page-container">
       {token ? <NavBarUser /> : <NavBar />}
@@ -87,7 +91,7 @@ export default function ProductDetails() {
                   class="mask mask-star-2 bg-orange-400"
                 />
               </div> */}
-               <div className="rating d-flex justify-content-center">
+              <div className="rating d-flex justify-content-center">
                 {subCategory.rating ? getRatingStars(subCategory.rating) : null}
               </div>
               <div className="d-flex flex-col m-2">
@@ -113,9 +117,7 @@ export default function ProductDetails() {
         <hr />
         <br></br>
         <div className="indent-0 text-wrap text-balance text-pretty">
-          <h2>
-            {subCategory.description}
-          </h2>
+          <h2>{subCategory.description}</h2>
         </div>
         <br />
 
