@@ -37,7 +37,7 @@ export function HomeCategoryCard({ category_name, description, id }) {
 export function HomeSubCategoryCard({ category, subCategoryData, id }) {
   return (
     <Row>
-      {subCategoryData.sice(0,3).map((sub) => {
+      {subCategoryData.slice(0,3).map((sub) => {
         return (
           <Col style={{ paddingLeft: "0px" }} key={sub.id}>
             {/* <a href={"/services/" + category + "/" + sub.categoryName}> */}
