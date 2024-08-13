@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AdminCards from "../../Admin/cards/AdminCards";
 import { toast } from "react-toastify";
-import AdminChart from "../../Admin/cards/AdminChart";
+import ProviderChart from "../cards/ProviderChart";
 import { Row, Col } from "react-bootstrap";
 import { getBookingsById, getOrdersById } from "../services/provider";
 
@@ -9,7 +9,7 @@ const ProviderDashboard = () => {
   const [revenue, setRevenue] = useState("");
   const [totalCount, setTotalCount] = useState("");
   const [pendingCount, setPendingCount] = useState("");
-  const [data, setData] = useState([]);
+
   useEffect(() => {
     loadOrders();
     loadBookings();
@@ -28,7 +28,6 @@ const ProviderDashboard = () => {
     else {
       toast.success("orders fetched successfully");
       const orders = result["data"];
-      console.log(orders);
 
       //calculating revenue
       const rev = orders
@@ -70,7 +69,9 @@ const ProviderDashboard = () => {
         </Col>
       </Row>
       <Row>
-        <Col>{/* <AdminChart data={data} /> */}</Col>
+        <Col>
+          <ProviderChart />
+        </Col>
       </Row>
     </div>
   );
