@@ -22,8 +22,12 @@ function Home() {
 
   const loadCategories = async () => {
     try {
-      const categoryResponse = await axios.get(`${SPRING_URL}/catgeory/categoryList`);
-      const subCategoryResponse = await axios.get(`${SPRING_URL}/catgeory/categoryListWithSubcategory`);
+      const categoryResponse = await axios.get(
+        `${SPRING_URL}/catgeory/categoryList`
+      );
+      const subCategoryResponse = await axios.get(
+        `${SPRING_URL}/catgeory/categoryListWithSubcategory`
+      );
       setCategories(categoryResponse.data);
       setSubCategories(subCategoryResponse.data);
       setIsLoading(false);
@@ -35,7 +39,7 @@ function Home() {
     }
   };
 
-  const token = sessionStorage.getItem('authToken');
+  const token = sessionStorage.getItem("authToken");
 
   return (
     <div className="container-fluid">
@@ -79,11 +83,16 @@ function Home() {
               className="container d-flex flex-column bd-highlight mb-3"
               style={{ margin: "100px" }}
             >
-              {subCategories.slice(0,5).map((mapData) => (
+              {subCategories.slice(0, 5).map((mapData) => (
                 <Container key={mapData.id}>
                   <Row>
                     <Col className="categoryHeading">{mapData.name}</Col>
-                    <Col style={{ display: "inline-flex", justifyContent: "flex-end" }}>
+                    <Col
+                      style={{
+                        display: "inline-flex",
+                        justifyContent: "flex-end",
+                      }}
+                    >
                       <Link
                         to={`/services/${mapData.id}`}
                         className="btn btn-outline btn-accent"
@@ -92,9 +101,8 @@ function Home() {
                         See All
                       </Link>
                     </Col>
-                  </Row>{
-                    
-                  }
+                  </Row>
+                  {}
                   <HomeSubCategoryCard
                     category={mapData.name}
                     subCategoryData={mapData.subCategories}
