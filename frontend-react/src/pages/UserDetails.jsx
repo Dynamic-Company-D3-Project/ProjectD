@@ -18,6 +18,7 @@ function UserDetails() {
     gender: "",
   })
   let [updateData, setUpdateData] = useState(userDetails)
+  let [address,setAddress] = useState("Address not added")
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,9 +39,15 @@ function UserDetails() {
           'Authorization': `Bearer ${token}`,
         },
       });
+      const address = await axios.get(`${SPRING_URL}/user/getHomeAddressString`,{
+        headers:{
+          'Authorization' : `Bearer ${token}`,
+        },
+      })
       if(response.data) {
         setUserDetails(response.data);
         setUpdateData(response.data);
+        if(address.data != null) setAddress(address.data)
             }
       else{
         toast.error("Error fetching the Details")
@@ -133,7 +140,10 @@ function UserDetails() {
                 <textarea
                   placeholder="Address"
                   type="Address"  
+                  disabled
                   className="textarea textarea-bordered textarea-lg w-full max-w-m "
+                  name="address"
+                  value = {address}
                 ></textarea>
               </div>
               <div className="col-6">

@@ -23,7 +23,7 @@ const VerticalNavbar = ({ onSelectCategory }) => {
   return (
     <aside 
     id="sidebar"
-    class="fixed relative mt-1 ml-4 mb-4 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0">
+    class="fixed relative mt-1 ml-3 mb-4 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0">
       <div className="h-full px-3 py-4 overflow-y-auto">
         <a href="/" className="flex items-center ps-2.5 mb-5">
           <img

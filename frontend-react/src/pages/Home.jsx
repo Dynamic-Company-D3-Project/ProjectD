@@ -38,7 +38,7 @@ function Home() {
   const token = sessionStorage.getItem('authToken');
 
   return (
-    <div className="page-container">
+    <div className="container-fluid">
       {token ? <NavBarUser /> : <NavBar />}
       <div className="content-container flex-col" style={{ gap: "10px" }}>
         <div className="flex justify-center items-center w-500 h-250 mt-5 flex-col">
