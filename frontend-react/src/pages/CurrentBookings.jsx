@@ -2,24 +2,59 @@ import NavBar from "../components/NavBar";
 import NavbarVertical from "../components/NavbarVertical";
 import { Link, useNavigate } from "react-router-dom";
 import BookingDeatils from "../dummy/BookingDetails.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Footer from "../components/Footer";
 import NavBarUser from "../components/NavBarUser";
+import { SPRING_URL } from "../services/Service";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 
 function CurrentBookings() {
-  const [bookings, setBookings] = useState(BookingDeatils);
-  const OnDelete = (index) => {
-    bookings.splice(index, 1);
-    setBookings([...bookings]);
+  const [bookings, setBookings] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const OnDelete = async (index) => {
+    const response = await axios.delete(`${SPRING_URL}/booking/deleteBooking/${index}`)
+    if(response.data)
+    {
+      toast.success(response.data)
+      loadBookings();
+    }
   };
+
+  useEffect(()=>{
+    loadBookings();
+  },[])
+
+  const token = sessionStorage.getItem('authToken');
+  const loadBookings = async ()=>{
+    try{
+      const bookingResponse = await axios.get(`${SPRING_URL}/booking/getBooking`,{
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      // console.log(bookingResponse.data)
+       setBookings(bookingResponse.data); 
+       setIsLoading(false);
+    }catch(error)
+    {
+      setIsLoading(false);
+      setError("Error fetching the data! Try again");
+      toast.error("Error fetching the data! Try again");
+      console.error("There was an error fetching the data!", error);
+    }
+  }
 
   const navigate = useNavigate();
 
   const onSupport = () => {
     navigate("/support");
   };
-
+console.log(bookings)
   return (
     <div className="page-container">
       <NavBarUser />
@@ -50,7 +85,12 @@ function CurrentBookings() {
             <div className="categoryHeader page-header fw-bold text-3xl">
               <h2>Booking Details</h2>
             </div>
+            {isLoading && <div>Loading...</div>}
+        {error && <div>Error: {error}</div>}
+        {!isLoading && !error && (
+          <>
             <div className="mt-3">
+             
               {bookings.length == 0 && (
                 <h3 style={{ textAlign: "center", color: "red" }}>
                   There are no Current Booking !!
@@ -97,11 +137,11 @@ function CurrentBookings() {
                       return (
                         <tr>
                           <td>{booking["bookingId"]}</td>
-                          <td>{booking["service"]}</td>
+                          <td>{booking["subcategoryName"]}</td>
                           <td>{booking["rate"]}</td>
                           <td>{booking["date"]}</td>
                           <td>{booking["time"]}</td>
-                          <td>{booking["providerId"]}</td>
+                          <td>{booking.provider_id.id}</td>
                           <td>
                             <button
                               onClick={() => {
@@ -128,6 +168,7 @@ function CurrentBookings() {
                 </table>
               )}
             </div>
+            </>)}
           </div>
         </div>
       </div>
