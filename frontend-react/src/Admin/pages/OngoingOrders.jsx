@@ -1,18 +1,57 @@
 import AdminNavBar from '../components/AdminNavBar';
 import NavbarVertical from '../components/NavbarVerticalAdmin'
 import OngoingOrdersdata from '../Dummy/OngoingOrdersData.json'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import axios from 'axios';
+import config  from "../../config";
 
 function OngoingOrders(){
-  const [orders , setOrders] = useState(OngoingOrdersdata)
-  const OnDelete = (index)=>{
-      orders.splice(index,1)
-      setOrders([...orders])
+  const [orders , setOrders] = useState([""])
+  useEffect(() => {
+    axios.get(config.dotNetApi+"Admin/getOrders/ongoing")
+        .then(response => {
+            setOrders(response.data.result);
+            console.log(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+           
+        });
+}, []);
+  const OnDelete = (id)=>{
+    axios.put(`${config.dotNetApi}Admin/getOrders/${id}/set-cancelled`)
+    
+      .then(response => {
+        if (response.status === 200) {
+         
+          const updatedOrders = orders.filter(order => order.bookingId != id);
+          setOrders(updatedOrders);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    //   orders.splice(index,1)
+    //   setOrders([...orders])
    }    
-   const OnComplete = (index)=>{
-    orders.splice(index,1)
-    setOrders([...orders])
+   const OnComplete = (id)=>{
+    // const orderId = orders[index].id; 
+
+    
+    axios.put(`${config.dotNetApi}Admin/getOrders/ongoing/${id}/set-complete`)
+      .then(response => {
+        if (response.status === 200) {
+         
+          const updatedOrders = orders.filter(order => order.bookingId != id);
+          setOrders(updatedOrders);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    // orders.splice(index,1)
+    // setOrders([...orders])
  }   
   return(
       <div >
@@ -48,7 +87,7 @@ function OngoingOrders(){
                           <th>User Id</th>
                           <th>Date</th>
                           <th>Time</th>
-                          <th>Price</th>
+                          {/* <th>Price</th> */}
                           <th>Action</th>
                           <th>Provider Id</th>
                       </tr>
@@ -56,20 +95,20 @@ function OngoingOrders(){
               <tbody>
               {orders.map((order)=>{
                   return <tr>
-                  <td>{order['BookingId']}</td>
-                  <td>{order['UserId']}</td>
-                  <td>{order['Date']}</td>
-                  <td>{order['Time']}</td>
-                  <td>{order['Price']}</td>
+                  <td>{order['bookingId']}</td>
+                  <td>{order['userId']}</td>
+                  <td>{order['bookingDate']}</td>
+                  <td>{order['bookingTime']}</td>
+                  {/* <td>{order['Price']}</td> */}
                   <td>
                       <button onClick={()=>{
-                        OnComplete(order['BookingId'])
+                        OnComplete(order['bookingId'])
                       }} className="btn btn-success bt-sm me-2"><span class="bi-check"></span></button>
                       <button onClick={()=>{
-                          OnDelete(order['BookingId'])
+                          OnDelete(order['bookingId'])
                       }} className="btn btn-danger bt-sm"><span class="bi-radioactive"></span></button>
                   </td>
-                  <td>{order['ProviderId']}</td>
+                  <td>{2}</td>
                   </tr>
               })}
               </tbody>

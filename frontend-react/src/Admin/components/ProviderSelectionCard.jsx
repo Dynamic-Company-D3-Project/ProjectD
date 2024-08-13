@@ -1,66 +1,135 @@
 import { StarRating } from "star-ratings-react";
 import '../../App.css'
-import { useNavigate } from "react-router-dom";
-const ReadOnlyStarRating = ({ rating }) => {
-    return (
-        <div style={{ pointerEvents: 'none'}} className="read-only-star-rating" >
-            <StarRating
-                maxRating={3}
-                rating={rating}
-            />
-        </div>
-    );
-};
+import { useNavigate} from "react-router-dom";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import config  from "../../config";
+import { Card } from "react-bootstrap";
 
-function ProviderSelectionCard(){
+//TODO
+function ProviderSelectionCard({order}){
+    console.log("inside Card", order)
     const Navigate = useNavigate()
-    const onAssign=()=>{
-        Navigate('/PendingOrders')
+    const onAssign= async ()=>{
+        try {
+            const response = await axios.put(config.dotNetApi+`Admin/bookings/${order.bookingId}/assign`,{
+                
+  "status": "ASSIGNED",
+  "providerId": selectedProvider.id
+
+            }).then(
+                Navigate('/admin/dashboard')
+            ); // Replace with your API endpoint
+            console.log(response.data)
+            
+          } catch (error) {
+              prompt(error);
+            console.error("Error fetching providers:", error);
+          }
+        //Navigate('/PendingOrders')
     }
+    const [providers, setProviders]= useState([]);
+    const [selectedProvider, setSelectedProvider] = useState("");
+    useEffect(() => {
+        // Fetch the providers when the component mounts
+        const fetchProviders = async () => {
+          try {
+            const response = await axios.get(config.dotNetApi+"admin/Provider"); // Replace with your API endpoint
+            
+            setProviders(response.data);
+          } catch (error) {
+            console.error("Error fetching providers:", error);
+          }
+        };
+    
+        fetchProviders();
+      }, []);
+      const handleProviderChange = (e) => {
+        const provider = providers.find(p => p.id === parseInt(e.target.value, 10));
+        setSelectedProvider(provider);
+        console.log(e.target.value)
+      };
     return(
-   <div className="mt-3 ">
-    <div className="card" style={{borderRadius:20, width:500, height:750, backgroundColor:"grey"}}>
-     <div className="card-body">
-        <input type="text" className="form-control input-lg mt-3 " placeholder="Sub Catagory"/>
-        <select className="form-select input-lg mt-3" >
-                            <option value="" disabled selected hidden >Available Providers</option>
-                            <option >Provider1</option>
-                            <option >Provider2</option>
-                            <option >Provider3</option>
-        </select>
-        <br />
-        <div className="card mt-5" style={{borderRadius:10}}>
-         <div className="card-body">
-            <div className="row">
-                <div className="col-5">
-                <img src="https://media.geeksforgeeks.org/wp-content/uploads/20190802021607/geeks14.png" alt="User" className="rounded-circle" width="135px"  />
+        <div className="mt-3 p-4">
+  <div className="card bg-gray-200 rounded-lg shadow-lg mx-auto" style={{ maxWidth: '600px', width: '100%' }}>
+    <div className="card-body">
+        <h3 className="text-2xl font-bold">Subcategory Id</h3>
+      <input
+        type="text"
+        className="form-control input-lg mt-3"
+        placeholder="Sub Category"
+        value={order.subcategoryId}
+      />
+      <select
+        className="form-select input-lg mt-3"
+        value={selectedProvider?.id || ''}
+        onChange={handleProviderChange}
+      >
+        <option value="" disabled hidden>
+          Available Providers
+        </option>
+        {providers.map((provider) => (
+          <option key={provider.id} value={provider.id}>
+            {provider.firstName} {provider.lastName}
+          </option>
+        ))}
+      </select>
+
+      <div className="card mt-5 bg-white rounded-lg shadow-md">
+        <div className="card-body p-4">
+          {selectedProvider && (
+            <div className="flex flex-col md:flex-row items-center">
+              <img
+                src="https://cdn3d.iconscout.com/3d/premium/thumb/man-avatar-3d-icon-download-in-png-blend-fbx-gltf-file-formats--men-people-male-pack-avatars-icons-5187871.png?f=webp"
+                alt="User"
+                className="rounded-full w-32 h-32 object-cover"
+              />
+              <div className="ml-0 md:ml-4 mt-4 md:mt-0">
+                <h4 className="text-2xl font-bold">{`${selectedProvider.firstName} ${selectedProvider.lastName}`}</h4>
+                <hr className="my-2" />
+                <div className="mt-3">
+                  {/* <h5 className="text-xl font-semibold bg-gray-300 p-2 rounded">Provider Details</h5> */}
+                  <div className="mt-2">
+                    <table className="min-w-full text-sm text-gray-600">
+                      <tbody>
+                        <tr>
+                          <td className="font-semibold">Email:</td>
+                          <td>{selectedProvider.email}</td>
+                        </tr>
+                        <tr>
+                          <td className="font-semibold">Gender:</td>
+                          <td>{selectedProvider.gender}</td>
+                        </tr>
+                        <tr>
+                          <td className="font-semibold">Phone Number:</td>
+                          <td>{selectedProvider.phoneNumber}</td>
+                        </tr>
+                        <tr>
+                          <td className="font-semibold">City:</td>
+                          <td>{selectedProvider.city}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-                <div className="col-7">
-                    <h4 className="mt-5" style={{fontWeight:"bold", fontSize:25}}>Provider Name</h4>
-                    <hr />
-                </div>
+              </div>
             </div>
-            <div className="card mt-3 mr-2 ml-2" style={{borderRadius:10}}>
-            <h5 className='card-header text-center'style={{fontSize :24,backgroundColor:"grey"}}>Provider Details</h5>
-            <div className="card-body">
-               <p></p>
-            </div>
-            </div>
-         </div>
+          )}
         </div>
-        <div className="row mt-3">
-            <div className="col-6 d-flex justify-content-end">
-                <ReadOnlyStarRating rating={2}/>
-            </div>
-            <div className="col-6">
-                <button onClick={()=>{
-                    onAssign()
-                }} className="btn btn-primary">Assign</button>
-            </div>
+        <div className="p-4 flex justify-center">
+          <button
+            onClick={onAssign}
+            className="btn btn-primary w-full md:w-auto"
+          >
+            Assign
+          </button>
         </div>
-     </div>
+      </div>
     </div>
-   </div>
+  </div>
+</div>
+
+
     );
 }
 
