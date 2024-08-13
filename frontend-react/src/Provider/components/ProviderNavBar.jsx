@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 
 function ProviderNavBar() {
+  function onLogout() {
+    sessionStorage.clear();
+  }
+
   return (
     <div className="navbar bg-base-100" style={{ backgroundColor: "#FFBF78" }}>
       <div className="flex-1">
@@ -19,7 +23,7 @@ function ProviderNavBar() {
       </div>
       <div className="flex-none gap-2 not-italic hover:italic text-2xl">
         <div className="text-blue-600">
-          <strong>Provider Name</strong>
+          <strong>{sessionStorage.getItem("name")}</strong>
         </div>
         <div className="dropdown dropdown-end">
           <div
@@ -30,7 +34,7 @@ function ProviderNavBar() {
             <div className="w-10 rounded-full">
               <img
                 alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
               />
             </div>
           </div>
@@ -45,7 +49,13 @@ function ProviderNavBar() {
             </li>
 
             <li>
-              <Link to={"/provider/login"}>Logout</Link>
+              <Link
+                onClick={onLogout}
+                className="nav-link"
+                to={"/provider/login"}
+              >
+                Logout
+              </Link>
             </li>
           </ul>
         </div>

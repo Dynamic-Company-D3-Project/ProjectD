@@ -2,6 +2,8 @@ import Home from "./pages/Home";
 import "./App.css";
 import RegisterUser from "./pages/RegisterUser";
 import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import LoginUser from "./pages/LoginUser";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -25,7 +27,7 @@ import AdminCategory from "./Admin/pages/AdminCategory";
 import AdminProviderList from "./Admin/pages/AdminProviderList";
 import ProviderLogin from "./Provider/pages/ProviderLogin";
 import ProviderDashboard from "./Provider/pages/ProviderDashboard";
-import ProviderSupport from "./Provider/pages/ProviderSupport";
+
 import ProviderOrders from "./Provider/pages/ProviderOrders";
 import ProviderDetails from "./Provider/pages/ProviderDetails";
 import ProductDetails from "./pages/ProductDetails";
@@ -36,6 +38,8 @@ import UserSupport from "./Admin/pages/UserSupport";
 import PendingCardPage from "./Admin/pages/PendingCardPage";
 import PendingOrders from "./Admin/pages/PendingOrders";
 import AdminProviderSupport from "./Admin/pages/AdminProviderSupport";
+import Layout from "./Provider/pages/ProviderLayout";
+import ProviderAssignedOrders from "./Provider/pages/ProviderAssignedOrders";
 
 function App() {
   return (
@@ -70,23 +74,54 @@ function App() {
         <Route path={"/admin/login"} element={<AdminLogin />} />
         <Route path={"/admin/category"} element={<AdminCategory />} />
         <Route path={"/admin/list-provider"} element={<AdminProviderList />} />
-        <Route path={"/admin/orders-ongoing"} element={<OngoingOrders/>}/>
-        <Route path={"/admin/orders-pending"} element={<PendingOrders/>}/>
-        <Route path={"/admin/support-user"} element={<UserSupport/>}/>
-        <Route path={"/admin/support-provider"} element={<AdminProviderSupport/>}/>
-        <Route path={"/PendingCardPage"} element={<PendingCardPage/>}/>
-
-
+        <Route path={"/admin/orders-ongoing"} element={<OngoingOrders />} />
+        <Route path={"/admin/orders-pending"} element={<PendingOrders />} />
+        <Route path={"/admin/support-user"} element={<UserSupport />} />
+        <Route
+          path={"/admin/support-provider"}
+          element={<AdminProviderSupport />}
+        />
+        <Route path={"/PendingCardPage"} element={<PendingCardPage />} />
 
         {/* <Route path={"/admin/support"} element={<AdminSupport />} /> */}
 
         {/* Provider Routes */}
         <Route path={"/provider/login"} element={<ProviderLogin />} />
-        <Route path={"/provider/dashboard"} element={<ProviderDashboard />} />
-        <Route path={"/provider/support"} element={<ProviderSupport />} />
-        <Route path={"/provider/orders"} element={<ProviderOrders />} />
-        <Route path={"/provider/detail"} element={<ProviderDetails />} />
+        <Route
+          path={"/provider/dashboard"}
+          element={
+            <Layout>
+              <ProviderDashboard />
+            </Layout>
+          }
+        />
+        {/* <Route path={"/provider/support"} element={<ProviderSupport />} /> */}
+        <Route
+          path={"/provider/orders"}
+          element={
+            <Layout>
+              <ProviderOrders />
+            </Layout>
+          }
+        />
+        <Route
+          path={"/provider/detail"}
+          element={
+            <Layout>
+              <ProviderDetails />
+            </Layout>
+          }
+        />
+        <Route
+          path={"/provider/pending_orders"}
+          element={
+            <Layout>
+              <ProviderAssignedOrders />
+            </Layout>
+          }
+        />
       </Routes>
+      <ToastContainer />
     </div>
   );
 }

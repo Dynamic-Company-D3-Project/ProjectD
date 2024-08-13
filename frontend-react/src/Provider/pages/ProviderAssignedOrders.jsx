@@ -3,10 +3,10 @@ import { Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 
 import { Table } from "react-bootstrap";
-import { AllOrders } from "../components/orders";
+import { PendingOrders } from "../components/orders";
 import { getOrdersById } from "../services/provider";
 
-export default function ProviderOrders(params) {
+export default function ProviderAssignedOrders(params) {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function ProviderOrders(params) {
           <thead className="adminUser-head">
             <tr>
               <th scope="col" className="px-6 py-3">
-                Order Id
+                Booking Id
               </th>
               <th scope="col" className="px-6 py-3">
                 UserName
@@ -44,26 +44,26 @@ export default function ProviderOrders(params) {
                 Date
               </th>
               <th scope="col" className="px-6 py-3">
+                Time
+              </th>
+              <th scope="col" className="px-6 py-3">
                 Revenue
               </th>
-              {/* <th scope="col" className="px-6 py-3">
-                Action
-              </th> */}
               <th scope="col" className="px-6 py-3">
-                Status
+                Action
               </th>
             </tr>
           </thead>
           <tbody className="adminUser-body">
             {orders.map((order) => {
               return (
-                <AllOrders
+                <PendingOrders
                   id={order.id}
                   name={order.name}
                   address={order.address}
                   date={order.date}
+                  time={order.time}
                   revenue={order.revenue}
-                  status={order.status}
                 />
               );
             })}
