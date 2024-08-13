@@ -6,7 +6,8 @@ function NavBarUser() {
   const handleLogout = () => {
     sessionStorage.removeItem('authToken');
     sessionStorage.removeItem('email');
-    navigate('/'); // Navigate to home or login page after logout
+    // window.location.href = "/"
+    navigate("/login");
   };
 
   return (

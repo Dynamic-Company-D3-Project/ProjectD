@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { SPRING_URL } from "../services/Service";
@@ -10,6 +10,7 @@ const LoginUser = () => {
     password: "",
   });
 
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginData((prevData) => ({
@@ -20,16 +21,13 @@ const LoginUser = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    toast.dismiss();
     try {
-      console.log(loginData);
       const response = await axios.post(`${SPRING_URL}/user/login`, loginData);
-      console.log(response.data);
       if (response.data) {
         toast.success("Login successful");
-        // Assuming the response contains a token
-        sessionStorage.setItem('authToken', response.data.jwtToken); // Store token or relevant data
-        // sessionStorage.setItem('email',response.data.userName)
-        window.location.href = "/";
+        sessionStorage.setItem('authToken', response.data.jwtToken);
+        navigate("/")
       } else {
         toast.error("Login failed");
       }
