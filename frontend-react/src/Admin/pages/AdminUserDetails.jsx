@@ -3,10 +3,22 @@ import AdminNavbar from "../components/AdminNavBar";
 import AdminSidebar from "../components/AdminSidebar";
 import { Container, Row, Col } from "react-bootstrap";
 import { Table } from "react-bootstrap";
-import { useState } from "react";
+import axios from 'axios';
+import config  from "../../config";
+import { useState,useEffect } from 'react';
 import Footer from "../../components/Footer";
 const AdminUserDetails = () => {
+  // const [users, setUsers] = useState([]);
   const [search, setSearch] = useState();
+
+  useEffect(()=>{
+    axios.get(`${config.dotNetApi}Admin/users`)
+    .then(response=>{
+      setUsers(response.data);
+      setFilterUsers(response.data);
+    })
+    .catch(error=>console.log(error));
+  },[])
   const initialUsers = [
     {
       id: 1,
@@ -115,14 +127,15 @@ const AdminUserDetails = () => {
     },
   ];
   console.log(search);
-  const [users, setUsers] = useState([...initialUsers]);
+  const [users, setUsers] = useState([]);
+  const [filterUsers, setFilterUsers] = useState([]);
   const handleSearch = () => {
     const filteredUsers = users.filter((user) => user.id == search);
 
-    setUsers(filteredUsers);
+    setFilterUsers(filteredUsers);
   };
   const resetSearch = () => {
-    setUsers(initialUsers);
+    setFilterUsers(users);
   };
   const deleteUser = (id) => {
     const filteredUsers = users.filter((user) => user.id != id);
@@ -185,19 +198,19 @@ const AdminUserDetails = () => {
                           <th>First Name</th>
                           <th>Last Name</th>
                           <th>Gender</th>
-                          <th>Area</th>
-                          <th>Action</th>
+                          <th>Email</th>
+                          
                         </tr>
                       </thead>
                       <tbody className="adminUser-body">
-                        {users.map((user) => (
+                        {filterUsers.map((user) => (
                           <tr key={user.id}>
                             <td>{user.id}</td>
                             <td>{user.firstName}</td>
                             <td>{user.lastName}</td>
                             <td>{user.gender}</td>
-                            <td>{user.area}</td>
-                            <td>
+                            <td>{user.email}</td>
+                            {/* <td>
                               <button className="btn btn-warning me-2">
                                 Edit
                               </button>
@@ -207,7 +220,7 @@ const AdminUserDetails = () => {
                               >
                                 Delete
                               </button>
-                            </td>
+                            </td> */}
                           </tr>
                         ))}
                       </tbody>
