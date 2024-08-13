@@ -6,7 +6,9 @@ export async function login({ email, password }) {
     email,
     password,
   };
+
   const response = await axios.post(`${config.url}/provider/login`, body);
+  console.log(response.data);
 
   return response.data;
 }
@@ -65,8 +67,9 @@ export async function getBookingsById() {
 export async function cancelOrderById({ id }) {
   const token = sessionStorage.getItem("token");
 
-  const response = axios.delete(`${config.url}/provider/remove`, {
-    headers: { token, id },
+  const response = await axios.put(`${config.url}/provider/remove`, null, {
+    params: { id },
+    headers: { token },
   });
 
   return response.data;

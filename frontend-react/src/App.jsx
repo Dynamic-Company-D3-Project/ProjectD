@@ -40,6 +40,7 @@ import PendingOrders from "./Admin/pages/PendingOrders";
 import AdminProviderSupport from "./Admin/pages/AdminProviderSupport";
 import Layout from "./Provider/pages/ProviderLayout";
 import ProviderAssignedOrders from "./Provider/pages/ProviderAssignedOrders";
+import Provider from "./Provider/pages/Provider";
 
 function App() {
   return (
@@ -87,39 +88,41 @@ function App() {
 
         {/* Provider Routes */}
         <Route path={"/provider/login"} element={<ProviderLogin />} />
-        <Route
-          path={"/provider/dashboard"}
-          element={
-            <Layout>
-              <ProviderDashboard />
-            </Layout>
-          }
-        />
-        {/* <Route path={"/provider/support"} element={<ProviderSupport />} /> */}
-        <Route
-          path={"/provider/orders"}
-          element={
-            <Layout>
-              <ProviderOrders />
-            </Layout>
-          }
-        />
-        <Route
-          path={"/provider/detail"}
-          element={
-            <Layout>
-              <ProviderDetails />
-            </Layout>
-          }
-        />
-        <Route
-          path={"/provider/pending_orders"}
-          element={
-            <Layout>
-              <ProviderAssignedOrders />
-            </Layout>
-          }
-        />
+        <Route path="/provider" element={<Provider />}>
+          <Route
+            path={"dashboard"}
+            element={
+              <Layout>
+                <ProviderDashboard />
+              </Layout>
+            }
+          />
+          {/* <Route path={"/provider/support"} element={<ProviderSupport />} /> */}
+          <Route
+            path={"orders"}
+            element={
+              <Layout>
+                <ProviderOrders />
+              </Layout>
+            }
+          />
+          <Route
+            path={"detail"}
+            element={
+              <Layout>
+                <ProviderDetails />
+              </Layout>
+            }
+          />
+          <Route
+            path={"pending_orders"}
+            element={
+              <Layout>
+                <ProviderAssignedOrders />
+              </Layout>
+            }
+          />
+        </Route>
       </Routes>
       <ToastContainer />
     </div>

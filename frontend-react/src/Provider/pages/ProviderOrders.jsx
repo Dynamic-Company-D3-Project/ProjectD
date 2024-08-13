@@ -14,6 +14,8 @@ export default function ProviderOrders(params) {
   }, []);
   async function loadOrders() {
     const result = await getOrdersById();
+    console.log(result["data"]);
+
     if (result["status"] === "error") toast.error("unable to load data");
     else {
       toast.success("data loaded");
@@ -58,11 +60,15 @@ export default function ProviderOrders(params) {
             {orders.map((order) => {
               return (
                 <AllOrders
-                  id={order.id}
-                  name={order.name}
-                  address={order.address}
-                  date={order.date}
-                  revenue={order.revenue}
+                  id={order.order_id}
+                  name={order.first_name + " " + order.last_name}
+                  address={`
+                    ${order.house_no}, ${order.street}, 
+                    ${order.city} ${order.pincode},
+                    ${order.state}
+                    `}
+                  date={order.order_date}
+                  revenue={order.order_rate}
                   status={order.status}
                 />
               );

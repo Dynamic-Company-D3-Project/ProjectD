@@ -1,13 +1,43 @@
 import NavbarVertical from "../components/NavbarVertical";
 import { Link, useNavigate } from "react-router-dom";
 import BookingDeatils from "../dummy/PastBookingDetails.json";
-import { useState } from "react";
+import { useEffect,useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import NavBarUser from "../components/NavBarUser";
 import Footer from "../components/Footer";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
+import { SPRING_URL } from "../services/Service";
 
 function PastBookings() {
-  const [bookings, setBookings] = useState(BookingDeatils);
+  const [bookings, setBookings] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(()=>{
+    loadBookings();
+  },[])
+
+  const token = sessionStorage.getItem('authToken');
+  const loadBookings = async ()=>{
+    try{
+      const bookingResponse = await axios.get(`${SPRING_URL}/order/getOrders`,{
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      console.log(bookingResponse.data)
+       setBookings(bookingResponse.data); 
+       setIsLoading(false);
+    }catch(error)
+    {
+      setIsLoading(false);
+      setError("Error fetching the data! Try again");
+      toast.error("Error fetching the data! Try again");
+      console.error("There was an error fetching the data!", error);
+    }
+  }
+
   const naviage = useNavigate();
   const onRaiseSupport = () => {
     naviage("/support");
@@ -42,6 +72,10 @@ function PastBookings() {
             <div className="categoryHeader page-header fw-bold text-3xl">
               <h2>Booking Details</h2>
             </div>
+            {isLoading && <div>Loading...</div>}
+        {error && <div>Error: {error}</div>}
+        {!isLoading && !error && (
+          <>
             <div className="mt-3">
               <div className="row">
                 <div className="col-10"></div>
@@ -60,7 +94,7 @@ function PastBookings() {
                     <th>Rate</th>
                     <th>Date</th>
                     <th>Time</th>
-                    <th>Provider Id</th>
+                    <th>Provider Name</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -69,12 +103,12 @@ function PastBookings() {
                   {bookings.map((booking) => {
                     return (
                       <tr>
-                        <td>{booking["bookingId"]}</td>
-                        <td>{booking["service"]}</td>
+                        <td>{booking["orderId"]}</td>
+                        <td>{booking["subcategory_id"]}</td>
                         <td>{booking["rate"]}</td>
                         <td>{booking["date"]}</td>
                         <td>{booking["time"]}</td>
-                        <td>{booking["providerId"]}</td>
+                        <td>{booking["provider_id"]}</td>
                         <td>{booking["status"]}</td>
                         <td>
                           <button
@@ -93,6 +127,7 @@ function PastBookings() {
                 </tbody>
               </table>
             </div>
+            </>)}
           </div>
         </div>
       </div>

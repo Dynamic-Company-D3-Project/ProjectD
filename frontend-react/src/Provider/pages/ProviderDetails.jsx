@@ -24,8 +24,6 @@ export default function ProviderDetails() {
     }
   }
 
-  const [provider, setProvider] = useState([]);
-
   useEffect(() => {
     loadProvider();
   }, []);
@@ -35,7 +33,10 @@ export default function ProviderDetails() {
     if (result["status"] === "error") toast.error("unable to load data");
     else {
       toast.success("details loaded successfully");
-      setProvider(result["data"]);
+      setEmail(result["data"][0].email);
+      setMobile(result["data"][0]["phone_number"]);
+      setCity(result["data"][0]["city"]);
+      setPincode(result["data"][0]["zip_code"]);
     }
   }
 
@@ -78,7 +79,7 @@ export default function ProviderDetails() {
                   type="text"
                   id="email"
                   name="email"
-                  placeholder={provider.email}
+                  placeholder={email}
                   class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400"
                 />
               </div>
@@ -96,7 +97,7 @@ export default function ProviderDetails() {
                   type="number"
                   id="mobile"
                   name="mobile"
-                  value={provider.phone_number}
+                  placeholder={mobile}
                   class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400"
                 />
               </div>
@@ -113,7 +114,7 @@ export default function ProviderDetails() {
                   type="text"
                   id="city"
                   name="city"
-                  value={provider.city}
+                  placeholder={city}
                   class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400"
                 />
               </div>
@@ -131,7 +132,7 @@ export default function ProviderDetails() {
                   type="text"
                   id="pincode"
                   name="pincode"
-                  value={provider.pincode}
+                  placeholder={pincode}
                   class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400"
                 />
               </div>

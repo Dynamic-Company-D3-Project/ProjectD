@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 import { Table } from "react-bootstrap";
 import { PendingOrders } from "../components/orders";
-import { getOrdersById } from "../services/provider";
+import { getBookingsById } from "../services/provider";
 
 export default function ProviderAssignedOrders(params) {
   const [orders, setOrders] = useState([]);
@@ -13,7 +13,8 @@ export default function ProviderAssignedOrders(params) {
     loadOrders();
   }, []);
   async function loadOrders() {
-    const result = await getOrdersById();
+    const result = await getBookingsById();
+    console.log(result["data"]);
     if (result["status"] === "error") toast.error("unable to load data");
     else {
       toast.success("data loaded");
@@ -58,12 +59,17 @@ export default function ProviderAssignedOrders(params) {
             {orders.map((order) => {
               return (
                 <PendingOrders
-                  id={order.id}
-                  name={order.name}
-                  address={order.address}
-                  date={order.date}
-                  time={order.time}
-                  revenue={order.revenue}
+                  loadOrders={loadOrders}
+                  id={order.booking_id}
+                  name={order.first_name + " " + order.last_name}
+                  address={`
+                    ${order.house_no}, ${order.street}, 
+                    ${order.city} ${order.pincode},
+                    ${order.state}
+                    `}
+                  date={order.booking_date}
+                  time={order.booking_time}
+                  revenue={order.price}
                 />
               );
             })}
