@@ -14,10 +14,38 @@ export default function Payment() {
     categoryName:"",
   });
 
+  const [minTime, setMinTime] = useState("");
+
   useEffect(() => {
     loadSubCategories();
+    setMinTimeForToday();
   }, []);
 
+  const getTodayDate = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    const dd = String(today.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  };
+
+  const getCurrentTime = () => {
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2, '0');
+    const mm = String(now.getMinutes()).padStart(2, '0');
+    return `${hh}:${mm}`;
+  };
+
+  const setMinTimeForToday = () => {
+    const todayDate = getTodayDate();
+    const selectedDate = subcategory.date;
+
+    if (selectedDate === todayDate) {
+      setMinTime(getCurrentTime());
+    } else {
+      setMinTime("00:00");
+    }
+  };
   async function loadSubCategories() {
     try {
       let subCategoryDetails = await axios.get(`${SPRING_URL}/subCategory/subCategoryById/${id}`);
@@ -26,16 +54,38 @@ export default function Payment() {
       toast.error("Error fetching the data");
     }
   }
-
-  const onPayment = () => {
-    navigate("/paynow");
+  const handleChange =(e)=>{
+    const { name, value } = e.target;
+    setSubCategory((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    if (name === "date") {
+      setMinTimeForToday();
+    }
   };
+
+  const onPayment = (e) => {
+    e.preventDefault();
+    if (!subcategory.date) {
+      toast.error("Please select a date");
+      return;
+    }
+
+    if (!subcategory.time) {
+      toast.error("Please select a time");
+      return;
+    }
+      navigate("/paynow",{state:{...subcategory,id:id,price:subcategory.price,date:subcategory.date,time:subcategory.time}, replace:true});
+  };
+  
 
   return (
     <div className="flex h-screen justify-center items-center my-9">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-8 border border-gray-300">
+      <h1 className="text-2xl font-bold mb-6 text-center">Select Service Schedule</h1>
         <form>
-        <h1 className="text-2xl font-bold mb-6 text-center">Select Service Schedule</h1>
+        
         <table className="w-full border-collapse">
           <tbody>
             <tr className="border-b">
@@ -45,6 +95,10 @@ export default function Payment() {
                   className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
                   type="date"
                   name="date"
+                  onChange={handleChange}
+                  min={getTodayDate()}
+                  required="required"
+                  value={subcategory.date}
                 />
               </td>
             </tr>
@@ -55,6 +109,10 @@ export default function Payment() {
                   className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
                   type="time"
                   name="time"
+                  min={minTime}
+                  required="required"
+                  onChange={handleChange}
+                  value={subcategory.time}
                 />
               </td>
             </tr>

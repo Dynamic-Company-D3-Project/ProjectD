@@ -28,7 +28,7 @@ const LoginUser = () => {
         toast.success("Login successful");
         // Assuming the response contains a token
         sessionStorage.setItem('authToken', response.data.jwtToken); // Store token or relevant data
-        sessionStorage.setItem('email',response.data.userName)
+        // sessionStorage.setItem('email',response.data.userName)
         window.location.href = "/";
       } else {
         toast.error("Login failed");
