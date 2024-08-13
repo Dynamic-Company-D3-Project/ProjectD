@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import "../App.css";
 
-function NavbarVertical() {
+function NavbarVertical({name}) {
+  const handleLogout = () => {
+    sessionStorage.removeItem('authToken')
+    sessionStorage.removeItem('email')
+  }
   return (
     <div>
       <nav className="navbar bg-light">
@@ -17,7 +21,7 @@ function NavbarVertical() {
           </li>
           <br />
           <li className="nav-item text-center ">
-            <h5>Hello , {"User"}</h5>
+            <h5 className="fw-bold">Hello , {name}</h5>
           </li>
           <br />
           <br />
@@ -53,7 +57,7 @@ function NavbarVertical() {
           <br />
           <br />
           <li className="nav-item text-center">
-            <Link to="/">Logout</Link>
+            <Link to="/" onClick={handleLogout}>Logout</Link>
           </li>
         </ul>
       </nav>
