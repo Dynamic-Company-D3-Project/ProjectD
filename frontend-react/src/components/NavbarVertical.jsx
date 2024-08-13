@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import "../App.css";
 
-function NavbarVertical({name}) {
+function NavbarVertical() {
   const handleLogout = () => {
     sessionStorage.removeItem('authToken')
-    sessionStorage.removeItem('email')
+   // sessionStorage.removeItem('email')
   }
+  const name = sessionStorage.getItem('userName')
   return (
-    <div>
+    <div >
       <nav className="navbar bg-light">
         <ul className="nav navbar-nav mx-auto">
           <br />
@@ -19,42 +20,35 @@ function NavbarVertical({name}) {
               width="135px"
             />
           </li>
-          <br />
+
           <li className="nav-item text-center ">
             <h5 className="fw-bold">Hello , {name}</h5>
           </li>
-          <br />
-          <br />
+
           <li className="nav-item text-center">
             <Link to="/">Home</Link>
           </li>
-          <br />
-          <br />
+         
           <li className="nav-item text-center">
             <Link to="/account">Details</Link>
           </li>
-          <br />
-          <br />
+         
           <li className="nav-item text-center ">
             <Link to="/cart">My Cart</Link>
           </li>
-          <br />
-          <br />
+          
           <li className="nav-item text-center">
             <Link to="/bookings">My Bookings</Link>
           </li>
-          <br />
-          <br />
+         
           <li className="nav-item text-center">
             <Link to="/address">Address</Link>
           </li>
-          <br />
-          <br />
+         
           <li className="nav-item text-center">
             <Link to="/support">Support</Link>
           </li>
-          <br />
-          <br />
+         
           <br />
           <li className="nav-item text-center">
             <Link to="/" onClick={handleLogout}>Logout</Link>
