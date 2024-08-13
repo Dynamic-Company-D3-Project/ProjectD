@@ -2,6 +2,8 @@ import { cancelOrderById } from "../services/provider";
 import { toast } from "react-toastify";
 
 export function AllOrders({ id, name, address, date, revenue, status }) {
+  console.log({ id, name, address, date, revenue, status });
+
   return (
     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
       <th
@@ -19,12 +21,21 @@ export function AllOrders({ id, name, address, date, revenue, status }) {
   );
 }
 
-export function PendingOrders({ id, name, address, date, time, revenue }) {
+export function PendingOrders({
+  loadOrders,
+  id,
+  name,
+  address,
+  date,
+  time,
+  revenue,
+}) {
   async function onCancel() {
     const result = await cancelOrderById({ id });
     if (result["status"] === "error") toast.error("Cannot Cancel Order");
     else {
       toast.success(`Order ${id} cancelled successfully`);
+      loadOrders();
     }
   }
   return (
@@ -44,7 +55,8 @@ export function PendingOrders({ id, name, address, date, time, revenue }) {
         {" "}
         <button
           type="button"
-          className="focus:outline-none text-white btn-danger"
+          className="focus:outline-none btn btn-danger"
+          style={{ backgroundColor: "red" }}
           onClick={onCancel}
         >
           Cancel

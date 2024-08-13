@@ -12,7 +12,7 @@ function ProviderSidebar() {
           <br />
           <li className="nav-item text-center ">
             <h5 style={{ fontWeight: "bold", fontSize: 25 }}>
-              Hello , {sessionStorage.getItem("name")}
+              Hello, {sessionStorage.getItem("name")}
             </h5>
           </li>
           <br />
