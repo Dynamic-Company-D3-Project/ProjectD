@@ -22,8 +22,12 @@ function Home() {
 
   const loadCategories = async () => {
     try {
-      const categoryResponse = await axios.get(`${SPRING_URL}/catgeory/categoryList`);
-      const subCategoryResponse = await axios.get(`${SPRING_URL}/catgeory/categoryListWithSubcategory`);
+      const categoryResponse = await axios.get(
+        `${SPRING_URL}/catgeory/categoryList`
+      );
+      const subCategoryResponse = await axios.get(
+        `${SPRING_URL}/catgeory/categoryListWithSubcategory`
+      );
       setCategories(categoryResponse.data);
       setSubCategories(subCategoryResponse.data);
       setIsLoading(false);
@@ -35,8 +39,8 @@ function Home() {
     }
   };
 
-  const token = sessionStorage.getItem('authToken');
-  console.log(subCategories)
+  const token = sessionStorage.getItem("authToken");
+
   return (
     <div className="container-fluid">
       {token ? <NavBarUser /> : <NavBar />}
@@ -84,7 +88,12 @@ function Home() {
                 <Container key={mapData.id}>
                   <Row>
                     <Col className="categoryHeading">{mapData.name}</Col>
-                    <Col style={{ display: "inline-flex", justifyContent: "flex-end" }}>
+                    <Col
+                      style={{
+                        display: "inline-flex",
+                        justifyContent: "flex-end",
+                      }}
+                    >
                       <Link
                         to={`/services/${mapData.id}`}
                         className="btn btn-outline btn-accent"
@@ -93,9 +102,8 @@ function Home() {
                         See All
                       </Link>
                     </Col>
-                  </Row>{
-                    
-                  }
+                  </Row>
+                  {}
                   <HomeSubCategoryCard
                     category={mapData.name}
                     subCategoryData={mapData.subCategories}

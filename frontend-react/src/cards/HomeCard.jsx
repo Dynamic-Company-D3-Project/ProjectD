@@ -1,17 +1,31 @@
 import { Row, Col } from "react-bootstrap";
 
-export function HomeCategoryCard({ category_name, description,id }) {
+export function HomeCategoryCard({ category_name, description, id }) {
   return (
     <a href={`/services/${id}`}>
       <div
         className="card card-compact bg-base-100 shadow-xl"
-        style={{ width: "250px", margin: "10px", display: "flex", flexDirection: "column" }}
+        style={{
+          width: "250px",
+          margin: "10px",
+          display: "flex",
+          flexDirection: "column",
+        }}
       >
         <figure>
-          <img src="/assets/category.jpg" alt={category_name} style={{ width: "100%", height: "150px" }} />
+          <img
+            src="/assets/category.jpg"
+            alt={category_name}
+            style={{ width: "100%", height: "150px" }}
+          />
         </figure>
-        <div className="card-body" style={{ flex: "1", display: "flex", flexDirection: "column" }}>
-          <h2 className="card-title" style={{ marginBottom: "0.5rem" }}>{category_name}</h2>
+        <div
+          className="card-body"
+          style={{ flex: "1", display: "flex", flexDirection: "column" }}
+        >
+          <h2 className="card-title" style={{ marginBottom: "0.5rem" }}>
+            {category_name}
+          </h2>
           <p style={{ flex: "1", marginBottom: "1rem" }}>{description}</p>
           <div className="card-actions justify-end"></div>
         </div>

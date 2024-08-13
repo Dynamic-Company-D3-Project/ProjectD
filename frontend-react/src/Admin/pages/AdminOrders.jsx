@@ -2,8 +2,21 @@ import { Container, Row, Col } from "react-bootstrap";
 import AdminNavBar from "../components/AdminNavBar";
 import AdminSidebar from "../components/AdminSidebar";
 import { Table } from "react-bootstrap";
+import axios from 'axios';
+import config  from "../../config";
+import { useState,useEffect } from 'react';
 
 export default function AdminOrders(params) {
+  const [orders, setOrders]= useState([]);
+
+  useEffect(()=>{
+    axios.get(`${config.dotNetApi}Admin/orders`)
+    .then(response=> {
+      setOrders(response.data);
+    }).catch(error=>{
+      console.log(error);
+    })
+  },[])
   return (
     <div className="page-container">
       <AdminNavBar />
@@ -25,7 +38,7 @@ export default function AdminOrders(params) {
                       <thead className="adminUser-head">
                         <tr>
                           <th scope="col" className="px-6 py-3">
-                            Booking Id
+                            Order Id
                           </th>
                           <th scope="col" className="px-6 py-3">
                             User Id
@@ -42,46 +55,25 @@ export default function AdminOrders(params) {
                           <th scope="col" className="px-6 py-3">
                             Status
                           </th>
-                          <th scope="col" className="px-6 py-3">
-                            Remark
-                          </th>
+                         
                         </tr>
                       </thead>
                       <tbody className="adminUser-body">
-                        <tr>
-                          <td className="px-6 py-4">B10154789</td>
-                          <td className="px-6 py-4">C85896541</td>
-                          <td className="px-6 py-4">12/02/2024</td>
-                          <td className="px-6 py-4">2500</td>
-                          <td className="px-6 py-4">AC Servicing</td>
-                          <td className="px-6 py-4 bg-success text-center text-white">
-                            Done
+                        {orders.map((order) =>{
+                          return <tr>
+                          <td className="px-6 py-4">{order.orderId}</td>
+                          <td className="px-6 py-4">{order.userId}</td>
+                          <td className="px-6 py-4">{order.orderDate.split('T')[0]}</td>
+                          <td className="px-6 py-4">{order.subcategory.price }</td>
+                          <td className="px-6 py-4">{order.subcategory.categoryName }</td>
+                          <td className={`px-6 py-4   text-center text-white`}>
+                            {order.status}
                           </td>
-                          <td className="px-6 py-4"></td>
+                          
                         </tr>
-                        <tr>
-                          <td class="px-6 py-4">B23498762</td>
-                          <td class="px-6 py-4">A12345678</td>
-                          <td class="px-6 py-4">05/06/2024</td>
-                          <td class="px-6 py-4">1800</td>
-                          <td class="px-6 py-4">Plumbing Repair</td>
-                          <td class="px-6 py-4 bg-success text-center text-white">
-                            Done
-                          </td>
-                          <td class="px-6 py-4"></td>
-                        </tr>
-
-                        <tr>
-                          <td class="px-6 py-4">C98765432</td>
-                          <td class="px-6 py-4">B98765432</td>
-                          <td class="px-6 py-4">20/05/2024</td>
-                          <td class="px-6 py-4">3200</td>
-                          <td class="px-6 py-4">Electrical Inspection</td>
-                          <td class="px-6 py-4 bg-danger text-center text-white">
-                            Cancelled
-                          </td>{" "}
-                          <td class="px-6 py-4"></td>
-                        </tr>
+                        })}
+                        
+                       
                       </tbody>
                     </Table>
                   </Row>
