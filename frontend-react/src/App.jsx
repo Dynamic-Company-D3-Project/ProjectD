@@ -48,10 +48,10 @@ function App() {
       <Routes>
         <Route path={"/"} element={<Home />} />
         <Route path={"/services"} element={<ViewServices />} />
-        <Route path={"/signup/password"} element={<RegisterUser />} />
-        <Route path={"/login/email"} element={<LoginUser />} />
+        <Route path={"/signup"} element={<RegisterUser />} />
+        <Route path={"/login"} element={<LoginUser />} />
         <Route path={"/password/reset"} element={<ForgotPassword />} />
-        <Route path={"/services/:category"} element={<Category />} />
+        <Route path={"/services/:id"} element={<Category />} />
         <Route path={"/about"} element={<ContactUs />} />
         <Route path={"/reviews"} element={<Reviews />} />
 
@@ -62,10 +62,10 @@ function App() {
         <Route path={"/address"} element={<Addresses />} />
         <Route path={"/support"} element={<Support />} />
         <Route
-          path={"/services/:category/:subcategory"}
+          path={"/services/:category/:id"}
           element={<ProductDetails />}
         />
-        <Route path={"/payment"} element={<Payment />} />
+        <Route path={"/payment/:id"} element={<Payment />} />
         <Route path={"/paynow"} element={<PayNow />} />
         {/* Admin routes */}
 

@@ -1,4 +1,4 @@
-function Address({addressType,streetName,Suite,Country,State,City,zip})
+function Address({addressType,streetName,houseNo,country,state,city,zip})
 {
     return(
         <div className='card card bg-base-100 shadow-xl' style={{width:300}}>
@@ -6,9 +6,9 @@ function Address({addressType,streetName,Suite,Country,State,City,zip})
            <div className='card-body' >
             <h5 className='card-title' style={{fontSize: 19,color:"blue"}}>Address Info :</h5>
             <p className='card-text'>{streetName},</p>
-            <p className='card-text'>{Suite},</p>
-            <p className='card-text'>{Country},{State}</p>
-            <p className='card-text'>{City},{zip}</p>
+            <p className='card-text'>{houseNo},</p>
+            <p className='card-text'>{country},{state}</p>
+            <p className='card-text'>{city},{zip}</p>
             </div> 
         </div>
     )

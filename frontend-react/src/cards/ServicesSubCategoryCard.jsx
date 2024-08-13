@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const SubCategory = ({ text, price }) => {
+const SubCategory = ({ text, price,id }) => {
   return (
     <div className="col-md-3 m-3" style={{ width: "250px", height: "250px" }}>
       <div className="card-sl">
@@ -12,7 +12,7 @@ const SubCategory = ({ text, price }) => {
         </div>
         <div className="card-heading">{text}</div>
         <div className="card-text fw-bold fs-5">&#x20B9; {price}</div>
-        <Link to="#" className="card-button" style={{ textDecoration: "none" }}>
+        <Link to={`/payment/${id}`} className="card-button" style={{ textDecoration: "none" }}>
           {" "}
           Book Now
         </Link>
