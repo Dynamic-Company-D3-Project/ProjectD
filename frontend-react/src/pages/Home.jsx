@@ -36,7 +36,7 @@ function Home() {
   };
 
   const token = sessionStorage.getItem('authToken');
-
+  console.log(subCategories)
   return (
     <div className="container-fluid">
       {token ? <NavBarUser /> : <NavBar />}
@@ -80,6 +80,7 @@ function Home() {
               style={{ margin: "100px" }}
             >
               {subCategories.slice(0,5).map((mapData) => (
+          
                 <Container key={mapData.id}>
                   <Row>
                     <Col className="categoryHeading">{mapData.name}</Col>
