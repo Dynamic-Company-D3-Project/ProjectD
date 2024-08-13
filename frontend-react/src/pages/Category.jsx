@@ -18,58 +18,10 @@ function Category() {
   }, [id]);
 
   async function loadSubCategories() {
-    // let data = await import("../dummy/subCategoryWithDesc.json");
     let subCategoryResponse = await axios.get(`${SPRING_URL}/catgeory/categoryWithSubCategoryList/${id}`)
     console.log(subCategoryResponse.data);
     setSubCategories(subCategoryResponse.data);
-    //console.log(data["map"]);
-    // let subData = subCategoryResponse["map"].filter((sub) => {
-    //   if (sub["category"] === category) {
-    //     return sub;
-    //   }
-    // });
-    // console.log(subData[0].services);
-
-    // setSubCategories(subData[0].services);
   }
-
-  // return (
-  //   <div className="page-container">
-  //     <NavBar />
-  //     <div
-  //       className="content-container container "
-  //       style={{ display: "block", padding: "2em 5em 0" }}
-  //     >
-  //       <div className="mb-2 p-4" style={{ display: "block" }}>
-  //         <h1 className="categoryHeading">{subCategory.name}</h1>
-  //       </div>
-  //       <div>
-  //         <Container>
-  //           <Row>
-  //             <Col>
-  //               {subCategory.subCategories.map((sub) => {
-  //                 return (
-  //                   <div style={{ display: "grid", margin: "2em" }}>
-  //                     <SubCategoryHorizontalCard
-  //                       text={sub.categoryName}
-  //                       price={sub.price}
-  //                       description={sub.description}
-  //                     />
-  //                   </div>
-  //                 );
-  //               })}
-  //             </Col>
-  //             <Col></Col>
-  //           </Row>
-  //         </Container>
-  //       </div>
-  //     </div>
-  //     <div className="footer-pin">
-  //       <Footer />
-  //     </div>
-  //   </div>
-  // );
-
   const token = sessionStorage.getItem('authToken');
   return (
     <div className="page-container">

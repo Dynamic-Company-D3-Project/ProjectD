@@ -5,15 +5,93 @@ import Footer from "../components/Footer";
 import NavBarUser from "../components/NavBarUser";
 import axios from "axios";
 import { SPRING_URL } from "../services/Service";
+import { toast } from "react-toastify";
 
 function Addresses() {
-  const [addresses, setAddresses] = useState([]);
+  const [addresses, setAddresses] = useState({
+    home: [],
+    office: [],
+    other: [],
+  });
+  const [addressType, setAddressType] = useState("");
+  const [address, setAddress] = useState({
+    street: "",
+    city: "",
+    state: "",
+    country: "",
+    pincode: "",
+    houseNo: "",
+    addressType: ""
+  })
   const token = sessionStorage.getItem('authToken');
 
+  let [updateAddress, setUpdateAddress] = useState(addresses)
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUpdateAddress((prevData) => ({
+      ...prevData, [name]: value,
+    }));
+  }
   useEffect(() => {
     loadAddresses();
-  }, []); // Added empty dependency array to avoid infinite loop
+  }, []);
+  useEffect(() => {
+    if (addressType) {
+      loadSpecificAddress();
+    }
+  }, [addressType])
 
+  async function loadSpecificAddress() {
+    try {
+      const specificAddress = await axios.get(`${SPRING_URL}/user/getAddressOnType`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }, params: {
+          aEnum: addressType.toUpperCase()
+        }
+      })
+      //console.log(specificAddress.data)
+      setAddress(specificAddress.data)
+      setUpdateAddress(specificAddress.data)
+    } catch (error) {
+
+    }
+  }
+  const handleReset = () => {
+    // Reset address fields to empty values
+    setUpdateAddress({
+      street: "",
+      city: "",
+      state: "",
+      country: "",
+      pincode: "",
+      houseNo: "",
+      addressType: ""
+    });
+    setAddressType("");
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(`${SPRING_URL}/user/updateAddress`, updateAddress, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      //console.log(response.data)
+      if (response == null) {
+        toast.error("Error updating the address")
+      }
+      else {
+        toast.success("Address updated successfully")
+        setUpdateAddress(response.data)
+        setAddress(response.data)
+      }
+    } catch (error) {
+      toast.error("Error updating the Address")
+    }
+  }
   async function loadAddresses() {
     try {
       const response = await axios.get(`${SPRING_URL}/user/getAddress`, {
@@ -24,10 +102,13 @@ function Addresses() {
       setAddresses(response.data || []);
     } catch (error) {
       console.error("Error loading addresses", error);
-      setAddresses([]); // Ensure addresses is set to an empty array in case of error
+      setAddresses([]);
     }
   }
-
+  const handleCancel = (e) => {
+    e.preventDefault();
+    setUpdateAddress(address)
+  }
   return (
     <div className="page-container">
       <NavBarUser />
@@ -48,82 +129,115 @@ function Addresses() {
                 className="border border-dark text-center shadow-xl"
                 style={{ height: 370, width: 700, borderRadius: 10 }}
               >
-                <input
-                  type="text"
-                  placeholder="Street name"
-                  className="form-control mt-2"
-                />
-                <input
-                  type="text"
-                  placeholder="Apt, Suite, etc"
-                  className="mt-3 form-control"
-                />
-                <div className="row mt-3">
-                  <div className="col-6 form-group">
-                    <select className="form-select">
-                      <option value="" disabled selected hidden>
-                        Country
-                      </option>
-                      <option>India</option>
-                      <option>USA</option>
-                      <option>UK</option>
-                    </select>
+                <form onSubmit={handleSubmit}>
+                  <input
+                    type="text"
+                    placeholder="Street name"
+                    className="form-control mt-2"
+                    name="street"
+                    value={updateAddress.street}
+                    onChange={handleChange}
+                  />
+                  <input
+                    type="text"
+                    placeholder="House No"
+                    className="mt-3 form-control"
+                    name="houseNo"
+                    value={updateAddress.houseNo}
+                    onChange={handleChange}
+                  />
+                  <div className="row mt-3">
+                    <div className="col-6 form-group">
+                      <select className="form-select"
+                        name="country"
+                        value={updateAddress.country}
+                        onChange={handleChange}
+                      >
+                        <option value="" disabled selected hidden>
+                          Country
+                        </option>
+                        <option>India</option>
+                        <option>USA</option>
+                        <option>UK</option>
+                      </select>
+                    </div>
+                    <div className="col-6">
+                      <select className="form-select"
+                        name="state"
+                        value={updateAddress.state}
+                        onChange={handleChange}
+                      >
+                        <option value="" disabled selected hidden>
+                          State
+                        </option>
+                        <option>Maharashtra</option>
+                        <option>Uttar Pradesh</option>
+                        <option>Karnataka</option>
+                      </select>
+                    </div>
                   </div>
-                  <div className="col-6">
-                    <select className="form-select">
-                      <option value="" disabled selected hidden>
-                        State
-                      </option>
-                      <option>Maharashtra</option>
-                      <option>Uttar Pradesh</option>
-                      <option>Karnataka</option>
-                    </select>
+                  <div className="row mt-3">
+                    <div className="col-6 form-group">
+                      <input
+                        type="text"
+                        placeholder="City"
+                        className="form-control"
+                        name="city"
+                        value={updateAddress.city}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="col-6">
+                      <input
+                        type="number"
+                        placeholder="Zip-Postal code"
+                        className="form-control"
+                        name="pincode"
+                        value={updateAddress.pincode}
+                        onChange={handleChange}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="row mt-3">
-                  <div className="col-6 form-group">
-                    <input
-                      type="text"
-                      placeholder="City"
-                      className="form-control"
-                    />
+                  <div className="row mt-3">
+                    <div className="col-6">
+                      <select className="form-select"
+                        name="addressType"
+                        onChange={(e) => setAddressType(e.target.value)}
+                      >
+                        <option value="" disabled selected hidden>
+                          Address Type
+                        </option>
+                        <option>Home</option>
+
+                        <option>Office</option>
+                        <option>Others</option>
+                      </select>
+                    </div>
                   </div>
-                  <div className="col-6">
-                    <input
-                      type="number"
-                      placeholder="Zip-Postal code"
-                      className="form-control"
-                    />
+                  <div className="row mt-4">
+                    <div className="col-12 d-flex justify-content-between">
+                      <button type="submit" className="btn btn-success">
+                        Confirm
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-warning"
+                        onClick={handleReset}
+                      >
+                        Reset
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        style={{ backgroundColor: "red" }}
+                        onClick={handleCancel}
+                      >
+                        Cancel
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div className="row mt-3">
-                  <div className="col-6">
-                    <select className="form-select">
-                      <option value="" disabled selected hidden>
-                        Address Type
-                      </option>
-                      <option>Home</option>
-                      <option>Work</option>
-                      <option>Other</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="row mt-4">
-                  <div className="col-6 text-center">
-                    <button type="submit" className="btn btn-success">
-                      Confirm
-                    </button>
-                  </div>
-                  <div className="col-6 text-center">
-                    <button
-                      type="button"
-                      className="btn btn-danger"
-                      style={{ backgroundColor: "red" }}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </div>
+
+                </form>
               </div>
             </div>
             <div className="row justify-content-center mt-5">

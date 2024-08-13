@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import "../App.css";
 
-function NavbarVertical({name}) {
+function NavbarVertical() {
   const handleLogout = () => {
     sessionStorage.removeItem('authToken')
-    sessionStorage.removeItem('email')
+   // sessionStorage.removeItem('email')
   }
+  const name = sessionStorage.getItem('userName')
   return (
     <div>
       <nav className="navbar bg-light">
