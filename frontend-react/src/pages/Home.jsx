@@ -83,7 +83,8 @@ function Home() {
               className="container d-flex flex-column bd-highlight mb-3"
               style={{ margin: "100px" }}
             >
-              {subCategories.slice(0, 5).map((mapData) => (
+              {subCategories.slice(0,5).map((mapData) => (
+          
                 <Container key={mapData.id}>
                   <Row>
                     <Col className="categoryHeading">{mapData.name}</Col>

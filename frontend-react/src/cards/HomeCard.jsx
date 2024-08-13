@@ -34,59 +34,39 @@ export function HomeCategoryCard({ category_name, description, id }) {
   );
 }
 
+
+const truncateDescription = (text, wordLimit) => {
+  const words = text.split(" ");
+  return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
+};
+
 export function HomeSubCategoryCard({ category, subCategoryData, id }) {
   return (
     <Row>
-      {subCategoryData.slice(0,3).map((sub) => {
-        return (
-          <Col style={{ paddingLeft: "0px" }} key={sub.id}>
-            {/* <a href={"/services/" + category + "/" + sub.categoryName}> */}
-            <a href={`/services/${category}/${sub.id}`}>
-              <div
-                className="card card-compact bg-base-100 shadow-xl"
-                style={{
-                  width: "250px",
-                  margin: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <figure style={{ flexShrink: 0 }}>
-                  <img
-                    src="/assets/SubCategory.jpg"
-                    alt={sub.categoryName}
-                    style={{ width: "100%", height: "auto" }}
-                  />
-                </figure>
-                <div
-                  className="card-body"
-                  style={{
-                    flex: "1",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <h2 className="card-title" style={{ marginBottom: "0.5rem" }}>
-                    {sub.categoryName}
-                  </h2>
-                  <p
-                    style={{
-                      flex: "1",
-                      marginBottom: "1rem",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
-                    {sub.description}
-                  </p>
-                  <div className="card-actions justify-end"></div>
-                </div>
+      {subCategoryData.slice(0,3).map((sub) => (
+        <Col style={{ paddingLeft: "0px" }} key={sub.id}>
+          <a href={`/services/${category}/${sub.id}`}>
+            <div
+              className="card card-compact bg-base-100 shadow-xl"
+              style={{
+                width: "250px",
+                margin: "10px",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <figure style={{ flexShrink: 0 }}>
+                <img src="/assets/SubCategory.jpg" alt={sub.categoryName} style={{ width: "100%", height: "auto" }} />
+              </figure>
+              <div className="card-body" style={{ flex: "1", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <h2 className="card-title" style={{ marginBottom: "0.5rem" }}>{sub.categoryName}</h2>
+                <p style={{ flex: "1", marginBottom: "1rem", overflow: "hidden", textOverflow: "ellipsis" }}>{truncateDescription(sub.description, 8)}</p>
+                <div className="card-actions justify-end"></div>
               </div>
-            </a>
-          </Col>
-        );
-      })}
+            </div>
+          </a>
+        </Col>
+      ))}
     </Row>
   );
 }

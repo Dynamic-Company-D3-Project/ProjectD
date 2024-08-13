@@ -95,7 +95,16 @@ export default function ProductDetails() {
                 {subCategory.rating ? getRatingStars(subCategory.rating) : null}
               </div>
               <div className="d-flex flex-col m-2">
+                {token ?
                 <Link to={`/payment/${id}`}>
+                <button
+                  class="w-40 m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  type="button"
+                >
+                  Book
+                </button>
+              </Link> :
+              <Link to={"/login"}>
                   <button
                     class="w-40 m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button"
@@ -103,6 +112,8 @@ export default function ProductDetails() {
                     Book
                   </button>
                 </Link>
+                }
+                
 
                 <button
                   class=" 2-40 m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

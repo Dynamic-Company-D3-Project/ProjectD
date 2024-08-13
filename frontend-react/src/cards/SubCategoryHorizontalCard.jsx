@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import {toast} from "react-toastify"
 
-function SubCategoryHorizontalCard({ text, price, description }) {
+function SubCategoryHorizontalCard({ text, price, description,id }) {
 
   const token = sessionStorage.getItem('authToken')
   return (
@@ -27,7 +27,7 @@ function SubCategoryHorizontalCard({ text, price, description }) {
         <span className="text-xl font-semibold text-start text-primary" >₹{price}</span>
         <div className="card-actions justify-end">
         {token ? 
-          <Link to={"/services" + { text }} className="btn btn-primary">
+          <Link to={`/payment/${id}`} className="btn btn-primary">
             Book
           </Link> : 
           <Link to={"/login"} className="btn btn-primary">

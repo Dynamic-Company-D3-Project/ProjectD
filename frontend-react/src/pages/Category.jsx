@@ -19,10 +19,11 @@ function Category() {
 
   async function loadSubCategories() {
     let subCategoryResponse = await axios.get(`${SPRING_URL}/catgeory/categoryWithSubCategoryList/${id}`)
-    console.log(subCategoryResponse.data);
+    //console.log(subCategoryResponse.data);
     setSubCategories(subCategoryResponse.data);
   }
   const token = sessionStorage.getItem('authToken');
+ // console.log(subCategory)
   return (
     <div className="page-container">
       {token ? <NavBarUser /> : <NavBar />}
@@ -38,6 +39,7 @@ function Category() {
                   subCategory.subCategories.map((sub) => (
                     <div key={sub.id} style={{ display: "grid", margin: "2em" }}>
                       <SubCategoryHorizontalCard
+                        id={sub.id}
                         text={sub.categoryName}
                         price={sub.price}
                         description={sub.description}
