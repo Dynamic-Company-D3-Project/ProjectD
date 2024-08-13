@@ -9,9 +9,21 @@ import config  from "../../config";
 
 function PendingOrders(){
     const [orders , setOrders] = useState([""])
-    const OnDelete = (index)=>{
-        orders.splice(index,1)
-        setOrders([...orders])
+    const OnDelete = (id)=>{
+        axios.put(`${config.dotNetApi}Admin/getOrders/${id}/set-cancelled`)
+    
+        .then(response => {
+          if (response.status === 200) {
+           
+            const updatedOrders = orders.filter(order => order.bookingId != id);
+            setOrders(updatedOrders);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+        // orders.splice(index,1)
+        // setOrders([...orders])
      }    
     const navigate = useNavigate()
     const  onAssign = (subcatid)=>{

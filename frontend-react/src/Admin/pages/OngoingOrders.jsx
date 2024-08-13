@@ -19,7 +19,19 @@ function OngoingOrders(){
            
         });
 }, []);
-  const OnDelete = (index)=>{
+  const OnDelete = (id)=>{
+    axios.put(`${config.dotNetApi}Admin/getOrders/${id}/set-cancelled`)
+    
+      .then(response => {
+        if (response.status === 200) {
+         
+          const updatedOrders = orders.filter(order => order.bookingId != id);
+          setOrders(updatedOrders);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
     //   orders.splice(index,1)
     //   setOrders([...orders])
    }    
@@ -93,7 +105,7 @@ function OngoingOrders(){
                         OnComplete(order['bookingId'])
                       }} className="btn btn-success bt-sm me-2"><span class="bi-check"></span></button>
                       <button onClick={()=>{
-                          OnDelete(order['BookingId'])
+                          OnDelete(order['bookingId'])
                       }} className="btn btn-danger bt-sm"><span class="bi-radioactive"></span></button>
                   </td>
                   <td>{2}</td>

@@ -112,6 +112,23 @@ const handleSubmit = async (event) => {
     setIsSubmitting(false);
   }
 };
+
+const OnDelete = (id)=>{
+  axios.put(`${config.dotNetApi}admin/Provider/delete/${id}`)
+  
+    .then(response => {
+      if (response.status === 200) {
+       
+        const updatedProvider = providers.filter(provider => provider.id != id);
+        setProviders(updatedProvider);
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  //   orders.splice(index,1)
+  //   setOrders([...orders])
+ }  
   return (
     <div className="page-container">
       <AdminNavBar />
@@ -355,17 +372,21 @@ const handleSubmit = async (event) => {
                   <td className="px-6 py-4">
                     <div>
                       <button
+                      
+                      onClick={()=>{
+                        OnDelete(provider.id)
+                    }}
                         type="button"
                         className="w-full mb-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                       >
                         Delete
                       </button>
-                      <button
+                      {/* <button
                         type="button"
                         className="w-full focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:focus:ring-yellow-900"
                       >
                         Edit
-                      </button>
+                      </button> */}
                     </div>
                   </td>
                 </tr>
