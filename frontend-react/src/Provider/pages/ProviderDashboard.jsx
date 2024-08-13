@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import AdminCards from "../../Admin/cards/AdminCards";
 import { toast } from "react-toastify";
-//import AdminChart from "../../Admin/cards/AdminChart";
+import AdminChart from "../../Admin/cards/AdminChart";
 import { Row, Col } from "react-bootstrap";
 import { getBookingsById, getOrdersById } from "../services/provider";
 
 const ProviderDashboard = () => {
   const [revenue, setRevenue] = useState("");
-  const [orders, setOrders] = useState([]);
-  const [bookings, setBookings] = useState([]);
   const [totalCount, setTotalCount] = useState("");
   const [pendingCount, setPendingCount] = useState("");
+  const [data, setData] = useState([]);
   useEffect(() => {
     loadOrders();
     loadBookings();
@@ -20,8 +19,7 @@ const ProviderDashboard = () => {
     if (result["status"] === "error") toast.error("unable to fetch bookings");
     else {
       toast.success("bookings fetched successfully");
-      setBookings(result["data"]);
-      setPendingCount(bookings.length);
+      setPendingCount(result["data"].length);
     }
   };
   const loadOrders = async function () {
@@ -29,18 +27,20 @@ const ProviderDashboard = () => {
     if (result["status"] === "error") toast.error("unable to fetch orders");
     else {
       toast.success("orders fetched successfully");
-      setOrders(result["data"]);
+      const orders = result["data"];
+      console.log(orders);
 
       //calculating revenue
-      setRevenue(
-        orders
-          .map((order) => {
-            return order.status === "COMPLETED";
-          })
-          .reduce((accumulator, order) => {
-            return (accumulator += order.rate);
-          }, 0)
-      );
+      const rev = orders
+        .filter((order) => {
+          return order.status === "COMPLETED";
+        })
+        .reduce((accumulator, order) => {
+          return (accumulator += Number(order.order_rate));
+        }, 0);
+
+      setRevenue(rev);
+
       setTotalCount(orders.length);
     }
   };
@@ -70,7 +70,7 @@ const ProviderDashboard = () => {
         </Col>
       </Row>
       <Row>
-        <Col>{/* <AdminChart /> */}</Col>
+        <Col>{/* <AdminChart data={data} /> */}</Col>
       </Row>
     </div>
   );

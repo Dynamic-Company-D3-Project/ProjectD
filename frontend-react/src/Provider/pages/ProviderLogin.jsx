@@ -4,7 +4,7 @@ import { login } from "../services/provider";
 import { toast } from "react-toastify";
 
 const ProviderLogin = () => {
-  if (sessionStorage.length !== 0) sessionStorage.removeItem("token");
+  if (sessionStorage.length !== 0) sessionStorage.clear("token");
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
