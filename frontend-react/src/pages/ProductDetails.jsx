@@ -54,8 +54,22 @@ export default function ProductDetails() {
 
   const token = sessionStorage.getItem("authToken");
 
+  const addItemToCart = async () => {
+    axios
+      .post(`${SPRING_URL}/cart/${id}`, null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        toast.success(response["data"]);
+      })
+      .catch((error) => {
+        toast.error("Can't add your data");
+      });
+  };
   return (
-    <div className="page-container bg-gray-100 min-h-screen">
+    <><div className="page-container bg-gray-100 min-h-screen">
       {token ? <NavBarUser /> : <NavBar />}
       <div className="content-container container mx-auto mt-6 p-4 bg-white rounded-lg shadow-md">
         <div className="flex justify-between items-start">
@@ -63,8 +77,7 @@ export default function ProductDetails() {
             <img
               className="w-60 h-60 p-1 rounded-full ring-2 ring-gray-300"
               src={subCategory.image}
-              alt={subCategory.categoryName}
-            />
+              alt={subCategory.categoryName} />
             <h1 className="text-2xl font-semibold mt-2">{subCategory.categoryName}</h1>
           </div>
           <div className="flex flex-col items-center justify-center">
@@ -73,7 +86,7 @@ export default function ProductDetails() {
               {subCategory.rating ? getRatingStars(subCategory.rating) : getRatingStars(0)}
             </div>
             <div className="flex flex-col items-center">
-              {token ? (
+            {token ? (
                 <Link to={`/payment/${id}`}>
                   <button className="w-40 m-2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
                     Book
@@ -86,36 +99,40 @@ export default function ProductDetails() {
                   </button>
                 </Link>
               )}
-              <button className="w-40 m-2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+
+              <button
+                class=" 2-40 m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button"
+                onClick={addItemToCart}
+              >
                 Add To Cart
               </button>
             </div>
           </div>
         </div>
-        <hr className="my-4" />
-        <div className="text-lg text-gray-700 mb-6">
-          <h2 className="text-xl font-bold mb-2">Description</h2>
-          <p>
-            {subCategory.description || "This is a detailed description of the product or service. It includes key features, benefits, and any unique selling points that make this product stand out. For example, it might describe the quality, materials used, and the craftsmanship involved. It could also highlight customer satisfaction, any awards or certifications, and other relevant details that would help potential customers make an informed decision."}
-          </p>
-          <p className="mt-4">
-            Our product is designed with the highest quality standards and provides exceptional value for your money. Whether you’re looking for durability, functionality, or style, this product meets all your needs with its innovative design and top-notch performance. Explore more about the benefits and unique features that set our product apart from the competition.
-          </p>
-          <br />
-          <hr />
-        </div>
-        <div id="reviews" className="mt-6">
-        <h2 className="text-xl font-semibold mb-4 text-info" style={{fontSize:"1.7rem"}}>Reviews</h2>
-        {subCategoryReview.length > 0 ? (
-            subCategoryReview.map((review) => (
-              <ReviewCard key={review.reviewId} review={review} />
-            ))
-          ) : (
-            <p className="text-gray-500">No reviews available.</p>
-          )}
-        </div>
       </div>
-      <Footer className="mt-6" />
-    </div>
+      <hr className="my-4" />
+      <div className="text-lg text-gray-700 mb-6">
+        <h2 className="text-xl font-bold mb-2">Description</h2>
+        <p>
+          {subCategory.description || "This is a detailed description of the product or service. It includes key features, benefits, and any unique selling points that make this product stand out. For example, it might describe the quality, materials used, and the craftsmanship involved. It could also highlight customer satisfaction, any awards or certifications, and other relevant details that would help potential customers make an informed decision."}
+        </p>
+        <p className="mt-4">
+          Our product is designed with the highest quality standards and provides exceptional value for your money. Whether you’re looking for durability, functionality, or style, this product meets all your needs with its innovative design and top-notch performance. Explore more about the benefits and unique features that set our product apart from the competition.
+        </p>
+        <br />
+        <hr />
+      </div>
+      <div id="reviews" className="mt-6">
+        <h2 className="text-xl font-semibold mb-4 text-info" style={{ fontSize: "1.7rem" }}>Reviews</h2>
+        {subCategoryReview.length > 0 ? (
+          subCategoryReview.map((review) => (
+            <ReviewCard key={review.reviewId} review={review} />
+          ))
+        ) : (
+          <p className="text-gray-500">No reviews available.</p>
+        )}
+      </div>
+    </div><Footer className="mt-6" /></>
   );
 }
