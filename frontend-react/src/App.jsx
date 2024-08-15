@@ -41,6 +41,7 @@ import AdminProviderSupport from "./Admin/pages/AdminProviderSupport";
 import Layout from "./Provider/pages/ProviderLayout";
 import ProviderAssignedOrders from "./Provider/pages/ProviderAssignedOrders";
 import Provider from "./Provider/pages/Provider";
+import CartPayment from "./pages/CartPayment";
 
 function App() {
   return (
@@ -61,11 +62,9 @@ function App() {
         <Route path={"/bookings/past"} element={<PastBookings />} />
         <Route path={"/address"} element={<Addresses />} />
         <Route path={"/support"} element={<Support />} />
-        <Route
-          path={"/services/:category/:id"}
-          element={<ProductDetails />}
-        />
+        <Route path={"/services/:category/:id"} element={<ProductDetails />} />
         <Route path={"/payment/:id"} element={<Payment />} />
+        <Route path={"/cart/payment/"} element={<CartPayment />} />
         <Route path={"/paynow"} element={<PayNow />} />
         {/* Admin routes */}
 

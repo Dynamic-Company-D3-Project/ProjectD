@@ -1,13 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavbarVertical from "../components/NavbarVertical";
-import CartData from "../dummy/CartData.json";
 import CartCard from "../cards/CartCard";
 import CartTotal from "../components/CartTotal";
 import NavBarUser from "../components/NavBarUser";
 import Footer from "../components/Footer";
+import axios from "axios";
+import { SPRING_URL } from "../services/Service";
+import { toast } from "react-toastify";
 
 function Cart() {
-  const [services, setService] = useState(CartData);
+  const [cartItems, setCartItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    loadCart();
+  }, []);
+  useEffect(() => {
+    const price = cartItems.reduce((acc, cart) => acc + Number(cart.price), 0);
+    setTotalPrice(price);
+  }, [cartItems]); // This only runs when cartItems changes
+  const token = sessionStorage.getItem("authToken");
+  const loadCart = async () => {
+    axios
+      .get(`${SPRING_URL}/cart/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setCartItems(response["data"]);
+      })
+      .catch((error) => {
+        toast.error("error fetching data");
+      });
+  };
+
   return (
     <div className="page-container">
       <NavBarUser />
@@ -22,14 +49,16 @@ function Cart() {
             </div>
             <div className="row mt-3">
               <div className="col-7">
-                {services.map((service) => {
+                {cartItems.map((service) => {
                   return (
                     <div className="row d-flex justify-content-center mt-3">
                       <CartCard
-                        serviceName={service["serviceName"]}
-                        serviceDescription={service["serviceDescription"]}
-                        servicePrice={service["servicePrice"]}
-                        serviceImage={service["serviceImage"]}
+                        loadCart={loadCart}
+                        serviceId={service["id"]}
+                        serviceName={service["name"]}
+                        serviceDescription={service["description"]}
+                        servicePrice={service["price"]}
+                        serviceImage={service["image"]}
                       />
                     </div>
                   );
@@ -37,7 +66,7 @@ function Cart() {
               </div>
               <div className="col-5 d-flex justify-content-center">
                 <div className="mt-4">
-                  <CartTotal />
+                  <CartTotal price={totalPrice} />
                 </div>
               </div>
             </div>

@@ -7,46 +7,60 @@ import { toast } from "react-toastify";
 export default function PayNow() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { subCategory,id,price,date,time } = location.state || {};
+  const { subCategory, id, price, date, time } = location.state || {};
 
   const [isPaymentSuccess, setIsPaymentSuccess] = useState(false);
+  const [addressType, setAddressType] = useState("HOME");
 
-const token = sessionStorage.getItem('authToken')
+  const token = sessionStorage.getItem("authToken");
   const platformFee = (price * 0.05).toFixed(2);
   const gst = (price * 0.18).toFixed(2);
-  const couponDiscount = 0.00;
-  const totalPayable = (parseFloat(price) + parseFloat(platformFee) + parseFloat(gst) - couponDiscount).toFixed(2);
+  const couponDiscount = 0.0;
+  const totalPayable = (
+    parseFloat(price) +
+    parseFloat(platformFee) +
+    parseFloat(gst) -
+    couponDiscount
+  ).toFixed(2);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("AddressType" + addressType);
+
     try {
-      const response = await axios.post(`${SPRING_URL}/booking/book/${id}`, {
-        date,
-        time
-      }, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
+      const response = await axios.post(
+        `${SPRING_URL}/booking/book/${id}`,
+        {
+          date,
+          time,
+          addressType,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         }
-      });
+      );
       console.log(response.data);
-      if(response.data){
-        toast.success(response.data)
-        setTimeout(()=>{
+      if (response.data) {
+        toast.success(response.data);
+        setTimeout(() => {
           navigate("/", { replace: true });
-        },1000)
-        
+        }, 1000);
       }
     } catch (error) {
-      console.error('Error:', error);
-      toast.error("Error is Booking, Please Try Again!!!")
+      console.error("Error:", error);
+      toast.error("Error is Booking, Please Try Again!!!");
     }
-  }
-  const handleCancel=()=>{
-    toast.success("Booking Cancelled")
-    setTimeout(()=>{window.location.href="/"},500)
-  }
-  
+  };
+  const handleCancel = () => {
+    toast.success("Booking Cancelled");
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 500);
+  };
+
   return (
     <div className="flex h-screen justify-center items-center my-9">
       <center>
@@ -83,20 +97,19 @@ const token = sessionStorage.getItem('authToken')
           <hr />
           <br />
           <div className="relative">
-            <input
-              type="search"
-              id="search"
-              className="p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Coupon Code"
-              required
-            />
-            <button
-              type="submit"
-              className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            
+            <select
+              className="form-select"
+              name="addressType"
+              onChange={(e) => setAddressType(e.target.value)}
             >
-              Apply
-            </button>
+              {/* <option value="" disabled selected hidden>
+                Address Type
+              </option> */}
+              <option selected>HOME</option>
+
+              <option>OFFICE</option>
+              <option>OTHERS</option>
+            </select>
           </div>
           <br />
           {isPaymentSuccess ? (

@@ -47,6 +47,21 @@ export default function ProductDetails() {
     return stars;
   };
   const token = sessionStorage.getItem("authToken");
+
+  const addItemToCart = async () => {
+    axios
+      .post(`${SPRING_URL}/cart/${id}`, null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        toast.success(response["data"]);
+      })
+      .catch((error) => {
+        toast.error("Can't add your data");
+      });
+  };
   return (
     <div className="page-container">
       {token ? <NavBarUser /> : <NavBar />}
@@ -118,6 +133,7 @@ export default function ProductDetails() {
                 <button
                   class=" 2-40 m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   type="button"
+                  onClick={addItemToCart}
                 >
                   Add To Cart
                 </button>

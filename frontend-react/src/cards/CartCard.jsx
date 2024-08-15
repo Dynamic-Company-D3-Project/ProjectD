@@ -1,9 +1,31 @@
+import axios from "axios";
+import { SPRING_URL } from "../services/Service";
+import { toast } from "react-toastify";
+
 function CartCard({
+  loadCart,
+  serviceId,
   serviceName,
   serviceDescription,
   servicePrice,
   serviceImage,
 }) {
+  const token = sessionStorage.getItem("authToken");
+  const removeCartItem = async () => {
+    axios
+      .delete(`${SPRING_URL}/cart/${serviceId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        toast.success(`${serviceName} removed successfully`);
+        loadCart();
+      })
+      .catch((error) => {
+        toast.error("Please Try again later");
+      });
+  };
   return (
     <div className="card flex-row mt-3 shadow-xl" style={{ width: 700 }}>
       <div className="d-flex">
@@ -24,6 +46,7 @@ function CartCard({
             type="button"
             className="btn btn-danger btn-sm me-3"
             style={{ backgroundColor: "red" }}
+            onClick={removeCartItem}
           >
             Remove
           </button>
