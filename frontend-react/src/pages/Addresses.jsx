@@ -84,28 +84,6 @@ if(specificAddress.data.addressId==null){
     });
     setAddressType("");
   };
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const response = await axios.put(`${SPRING_URL}/user/updateAddress`, updateAddress, {
-  //       headers: {
-  //         'Authorization': `Bearer ${token}`
-  //       }
-  //     })
-  //     //console.log(response.data)
-  //     if (response == null) {
-  //       toast.error("Error updating the address")
-  //     }
-  //     else {
-  //       toast.success("Address updated successfully")
-  //       loadAddresses();
-  //       setUpdateAddress(response.data)
-  //       setAddress(response.data)
-  //     }
-  //   } catch (error) {
-  //     toast.error("Error updating the Address")
-  //   }
-  // }
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -165,6 +143,22 @@ if(specificAddress.data.addressId==null){
                 style={{ height: 370, width: 700, borderRadius: 10 }}
               >
                 <form onSubmit={handleSubmit}>
+                <div className="row mt-3">
+                    <div className="col-6">
+                      <select className="form-select"
+                        name="addressType"
+                        onChange={(e) => setAddressType(e.target.value)}
+                      >
+                        <option value="" disabled selected hidden>
+                          Address Type
+                        </option>
+                        <option>Home</option>
+
+                        <option>Office</option>
+                        <option>Others</option>
+                      </select>
+                    </div>
+                  </div>
                   <input
                     type="text"
                     placeholder="Street name"
@@ -233,22 +227,7 @@ if(specificAddress.data.addressId==null){
                       />
                     </div>
                   </div>
-                  <div className="row mt-3">
-                    <div className="col-6">
-                      <select className="form-select"
-                        name="addressType"
-                        onChange={(e) => setAddressType(e.target.value)}
-                      >
-                        <option value="" disabled selected hidden>
-                          Address Type
-                        </option>
-                        <option>Home</option>
-
-                        <option>Office</option>
-                        <option>Others</option>
-                      </select>
-                    </div>
-                  </div>
+                  
                   <div className="row mt-4">
                     <div className="col-12 d-flex justify-content-between">
                       <button type="submit" className="btn btn-success">

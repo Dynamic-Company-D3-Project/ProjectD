@@ -29,7 +29,7 @@ function Category() {
       {token ? <NavBarUser /> : <NavBar />}
       <div className="content-container container" style={{ display: "block", padding: "2em 5em 0" }}>
         <div className="mb-2 p-4" style={{ display: "block" }}>
-          <h1 className="categoryHeading">{subCategory.name}</h1>
+          <h1 className="categoryHeading fw-bold">{subCategory.name}</h1>
         </div>
         <div>
           <Container>
@@ -43,6 +43,8 @@ function Category() {
                         text={sub.categoryName}
                         price={sub.price}
                         description={sub.description}
+                        image={sub.image}
+                        name={subCategory.name}
                       />
                     </div>
                   ))
