@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { SPRING_URL } from "../services/Service";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 function UserDetails() {
@@ -198,7 +198,6 @@ function UserDetails() {
       <div className="footer-pin">
         <Footer />
       </div>
-      <ToastContainer />
     </div>
   );
 }

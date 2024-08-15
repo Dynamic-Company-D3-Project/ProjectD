@@ -1,13 +1,12 @@
 import NavBar from "../components/NavBar";
 import NavbarVertical from "../components/NavbarVertical";
 import { Link, useNavigate } from "react-router-dom";
-import BookingDeatils from "../dummy/BookingDetails.json";
 import { useEffect, useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Footer from "../components/Footer";
 import NavBarUser from "../components/NavBarUser";
 import { SPRING_URL } from "../services/Service";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 function CurrentBookings() {

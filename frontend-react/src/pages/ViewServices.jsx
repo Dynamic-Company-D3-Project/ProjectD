@@ -74,17 +74,18 @@ function ViewServices() {
             <VerticalNavbar onSelectCategory={setSelectedCategory} />
           </div>
           <div className="flex-1">
-            <div className="w-full h-250 flex flex-wrap justify-center items-start ">
-              {subCategories.map((service, index) => (
-                <SubCategory
-                  key={index}
-                  text={service.categoryName}
-                  price={service.price}
-                  id = {service.id}
-                />
-              ))}
-            </div>
-          </div>
+  <div className="w-full min-h-[200px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 ml-2">
+    {subCategories.map((service, index) => (
+      <SubCategory
+        key={index}
+        text={service.categoryName}
+        price={service.price}
+        id={service.id}
+      />
+    ))}
+  </div>
+</div>
+
         </div>
       </div>
       <div className="footer-pin">

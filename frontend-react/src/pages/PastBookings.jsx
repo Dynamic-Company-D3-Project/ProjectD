@@ -5,7 +5,7 @@ import { useEffect,useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import NavBarUser from "../components/NavBarUser";
 import Footer from "../components/Footer";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import axios from "axios";
 import { SPRING_URL } from "../services/Service";
 
@@ -77,6 +77,12 @@ function PastBookings() {
         {!isLoading && !error && (
           <>
             <div className="mt-3">
+            {bookings.length == 0 && (
+                    <h3 style={{ textAlign: "center", color: "red" }}>
+                      There are no Past Bookings !!
+                    </h3>
+                )}
+                {bookings.length > 0 && (
               <div className="row">
                 <div className="col-10"></div>
                 <div className="col-2" style={{ display: "inline-flex" }}>
@@ -86,10 +92,12 @@ function PastBookings() {
                   <h6 className="mt-2">Raise Support</h6>
                 </div>
               </div>
+              )}
+              {bookings.length > 0 && (
               <table className="table table-striped table-bordered shadow-xl">
                 <thead style={{ fontSize: 18 }}>
                   <tr>
-                    <th>Booking Id</th>
+                    <th>Order Id</th>
                     <th>Service</th>
                     <th>Rate</th>
                     <th>Date</th>
@@ -126,6 +134,7 @@ function PastBookings() {
                   })}
                 </tbody>
               </table>
+              )}
             </div>
             </>)}
           </div>
