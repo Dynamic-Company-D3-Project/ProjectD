@@ -14,7 +14,7 @@ export default function ProviderAssignedOrders(params) {
   }, []);
   async function loadOrders() {
     const result = await getBookingsById();
-    console.log(result["data"]);
+    //  console.log(result["data"]);
     if (result["status"] === "error") toast.error("unable to load data");
     else {
       toast.success("data loaded");

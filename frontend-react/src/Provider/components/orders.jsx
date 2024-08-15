@@ -2,8 +2,6 @@ import { cancelOrderById } from "../services/provider";
 import { toast } from "react-toastify";
 
 export function AllOrders({ id, name, address, date, revenue, status }) {
-  console.log({ id, name, address, date, revenue, status });
-
   return (
     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
       <th
