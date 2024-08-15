@@ -7,7 +7,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { SPRING_URL } from "../services/Service";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import NavBarUser from "../components/NavBarUser";
 
 function Home() {
@@ -42,7 +42,7 @@ function Home() {
   const token = sessionStorage.getItem("authToken");
 
   return (
-    <div className="container-fluid">
+    <div className="container">
       {token ? <NavBarUser /> : <NavBar />}
       <div className="content-container flex-col" style={{ gap: "10px" }}>
         <div className="flex justify-center items-center w-500 h-250 mt-5 flex-col">
@@ -62,7 +62,7 @@ function Home() {
         {!isLoading && !error && (
           <>
             <div
-              className="container w-300 h-250 mt-5"
+              className="container w-300 h-200 mt-5"
               style={{
                 display: "flex",
                 flexWrap: "wrap",
@@ -78,10 +78,10 @@ function Home() {
                   id={cat.id}
                 />
               ))}
-            </div>
+            </div>           
             <div
-              className="container d-flex flex-column bd-highlight mb-3"
-              style={{ margin: "100px" }}
+              className="container d-flex flex-column bd-highlight mb-3 ms-5 items-center"
+              style={{ margin: "10px" , width:"1455px" }}
             >
               {subCategories.slice(0,5).map((mapData) => (
           
@@ -97,7 +97,7 @@ function Home() {
                       <Link
                         to={`/services/${mapData.id}`}
                         className="btn btn-outline btn-accent"
-                        style={{ marginRight: "7rem" }}
+                        style={{ marginRight: "8rem" }}
                       >
                         See All
                       </Link>
@@ -118,7 +118,7 @@ function Home() {
       <div className="footer-pin">
         <Footer />
       </div>
-      <ToastContainer />
+      
     </div>
   );
 }

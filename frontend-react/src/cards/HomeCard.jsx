@@ -44,13 +44,13 @@ export function HomeSubCategoryCard({ category, subCategoryData, id }) {
   return (
     <Row>
       {subCategoryData.slice(0,3).map((sub) => (
-        <Col style={{ paddingLeft: "0px" }} key={sub.id}>
+        <Col style={{ paddingLeft: "0px"}} key={sub.id}>
           <a href={`/services/${category}/${sub.id}`}>
             <div
               className="card card-compact bg-base-100 shadow-xl"
               style={{
                 width: "250px",
-                margin: "10px",
+                margin: "20px",
                 display: "flex",
                 flexDirection: "column",
               }}
