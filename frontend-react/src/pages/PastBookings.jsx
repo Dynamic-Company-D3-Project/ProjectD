@@ -5,7 +5,7 @@ import { useEffect,useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import NavBarUser from "../components/NavBarUser";
 import Footer from "../components/Footer";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import axios from "axios";
 import { SPRING_URL } from "../services/Service";
 
@@ -97,7 +97,7 @@ function PastBookings() {
               <table className="table table-striped table-bordered shadow-xl">
                 <thead style={{ fontSize: 18 }}>
                   <tr>
-                    <th>Booking Id</th>
+                    <th>Order Id</th>
                     <th>Service</th>
                     <th>Rate</th>
                     <th>Date</th>

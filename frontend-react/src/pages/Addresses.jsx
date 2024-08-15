@@ -51,13 +51,26 @@ function Addresses() {
           aEnum: addressType.toUpperCase()
         }
       })
-      //console.log(specificAddress.data)
+      // console.log(specificAddress.data)
       setAddress(specificAddress.data)
       setUpdateAddress(specificAddress.data)
+      // console.log(specificAddress.data.addressId)
+if(specificAddress.data.addressId==null){
+  setUpdateAddress({
+    street: "",
+    city: "",
+    state: "",
+    country: "",
+    pincode: "",
+    houseNo: "",
+    addressType:`${addressType.toUpperCase()}`
+  })
+}
     } catch (error) {
-
+       toast.error("error loading address on type")
     }
   }
+
   const handleReset = () => {
     // Reset address fields to empty values
     setUpdateAddress({
@@ -71,27 +84,49 @@ function Addresses() {
     });
     setAddressType("");
   };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await axios.put(`${SPRING_URL}/user/updateAddress`, updateAddress, {
+  //       headers: {
+  //         'Authorization': `Bearer ${token}`
+  //       }
+  //     })
+  //     //console.log(response.data)
+  //     if (response == null) {
+  //       toast.error("Error updating the address")
+  //     }
+  //     else {
+  //       toast.success("Address updated successfully")
+  //       loadAddresses();
+  //       setUpdateAddress(response.data)
+  //       setAddress(response.data)
+  //     }
+  //   } catch (error) {
+  //     toast.error("Error updating the Address")
+  //   }
+  // }
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`${SPRING_URL}/user/updateAddress`, updateAddress, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-      //console.log(response.data)
-      if (response == null) {
-        toast.error("Error updating the address")
+      if (address.addressId) {
+        const response = await axios.put(`${SPRING_URL}/user/updateAddress`, updateAddress, {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+        toast.success("Address updated successfully");
+        setAddress(response.data);
+        setUpdateAddress(response.data);
+      } else {
+        await axios.post(`${SPRING_URL}/user/address`, updateAddress, {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+        toast.success("Address added successfully");
       }
-      else {
-        toast.success("Address updated successfully")
-        setUpdateAddress(response.data)
-        setAddress(response.data)
-      }
+      loadAddresses();
     } catch (error) {
-      toast.error("Error updating the Address")
+      toast.error("Error updating or adding the address");
     }
-  }
+  };
   async function loadAddresses() {
     try {
       const response = await axios.get(`${SPRING_URL}/user/getAddress`, {
@@ -123,7 +158,7 @@ function Addresses() {
             </h2>
             <div className="row justify-content-center">
               <h5 style={{ fontWeight: "bold", fontSize: 20 }}>
-                Add Address :
+                Update OR Add Address :
               </h5>
               <div
                 className="border border-dark text-center shadow-xl"

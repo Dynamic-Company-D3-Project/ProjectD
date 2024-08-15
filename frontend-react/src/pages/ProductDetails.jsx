@@ -5,7 +5,7 @@ import ReviewCard from "../components/ReviewCard";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { SPRING_URL } from "../services/Service";
-import { ToastContainer, toast } from "react-toastify";
+import {toast } from "react-toastify";
 import NavBarUser from "../components/NavBarUser";
 import "react-toastify/dist/ReactToastify.css";
 
