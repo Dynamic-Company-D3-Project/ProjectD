@@ -23,6 +23,37 @@
   flex-wrap: wrap;
   justify-content: flex-start;
 }
+/* src/components/StarRating.css */
+
+.star-rating {
+  display: flex;
+  font-size: 24px; /* Adjust size as needed */
+  color: #FFD700; /* Gold color for stars */
+}
+
+.star {
+  margin: 0 2px;
+}
+
+.star.filled {
+  color: #FFD700; /* Gold color for filled stars */
+}
+
+.star.half {
+  color: #FFD700; /* Gold color for half stars */
+  position: relative;
+}
+
+.star.half::after {
+  content: '\f005'; /* Unicode for half star */
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #FFFFFF; /* White color to cover half of the star */
+  width: 50%;
+  overflow: hidden;
+}
+
 
 .page-container {
   min-height: 100vh;
@@ -234,7 +265,7 @@ a {
   font-family: "Poppins", sans-serif;
   margin: 0px;
   height: 100vh;
-  background-image: url(https://plus.unsplash.com/premium_photo-1664392265223-755c0cffec39?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGNvbnRhY3QlMjB1c3xlbnwwfHwwfHx8MA%3D%3D);
+  background-image: url(https://images.pexels.com/photos/1591062/pexels-photo-1591062.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
