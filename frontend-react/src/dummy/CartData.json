@@ -1,0 +1,21 @@
+
+[
+    {
+      "serviceName": "House Cleaning",
+      "serviceDescription": "Thorough and efficient cleaning of your entire home. Includes vacuuming, dusting, and mopping.",
+      "servicePrice": 1200,
+      "serviceImage": "https://media.geeksforgeeks.org/wp-content/uploads/20190802021607/geeks14.png"
+    },
+    {
+      "serviceName": "Plumbing Repair",
+      "serviceDescription": "Expert plumbing services for leaks, clogs, and installations. Reliable and quick repairs.",
+      "servicePrice": 800,
+      "serviceImage": "https://media.geeksforgeeks.org/wp-content/uploads/20190802021607/geeks14.png"
+    },
+    {
+      "serviceName": "Electrical Maintenance",
+      "serviceDescription": "Professional electrical services including wiring, lighting, and repairs. Ensuring safety and quality.",
+      "servicePrice": 2500,
+      "serviceImage": "https://media.geeksforgeeks.org/wp-content/uploads/20190802021607/geeks14.png"
+    }
+  ]
