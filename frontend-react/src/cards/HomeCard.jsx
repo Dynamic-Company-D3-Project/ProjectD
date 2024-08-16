@@ -44,7 +44,7 @@ const truncateDescription = (text, wordLimit) => {
 };
 
 export function HomeSubCategoryCard({ category, subCategoryData, id,image }) {
-  console.log(image);
+  //console.log(image);
   
   return (
     <Row>

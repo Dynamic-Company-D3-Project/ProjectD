@@ -43,7 +43,7 @@ export default function ProductDetails() {
     return Array.from({ length: 5 }, (_, i) => (
       <svg
         key={i}
-        className={`w-5 h-5 fill-current ${i < rating ? "text-yellow-500" : "text-gray-400"}`}
+        className={`w-6 h-6 ${i < rating ? "text-orange-500" : "text-gray-300"}`}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
       >
@@ -55,53 +55,52 @@ export default function ProductDetails() {
   const token = sessionStorage.getItem("authToken");
 
   const addItemToCart = async () => {
-    axios
-      .post(`${SPRING_URL}/cart/${id}`, null, {
+    try {
+      const response = await axios.post(`${SPRING_URL}/cart/${id}`, null, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
-      .then((response) => {
-        toast.success(response["data"]);
-      })
-      .catch((error) => {
-        toast.error("Can't add your data");
       });
+      toast.success(response.data);
+    } catch (error) {
+      toast.error("Can't add your data");
+    }
   };
+
   return (
-    <><div className="page-container bg-gray-100 min-h-screen">
+    <div className="page-container bg-gray-100 min-h-screen">
       {token ? <NavBarUser /> : <NavBar />}
-      <div className="content-container container mx-auto mt-6 p-4 bg-white rounded-lg shadow-md">
-        <div className="flex justify-between items-start">
+      <div className="content-container container mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
+        <div className="flex flex-col lg:flex-row justify-between items-start gap-6">
           <div className="flex flex-col items-start">
             <img
-              className="w-60 h-60 p-1 rounded-full ring-2 ring-gray-300"
+              className="w-48 h-48 object-cover rounded-lg border border-gray-300"
               src={subCategory.image}
-              alt={subCategory.categoryName} />
-            <h1 className="text-2xl font-semibold mt-2">{subCategory.categoryName}</h1>
+              alt={subCategory.categoryName}
+            />
+            <h1 className="text-3xl font-bold mt-4">{subCategory.categoryName}</h1>
           </div>
           <div className="flex flex-col items-center justify-center">
-            <div className="text-3xl font-bold mb-4">₹{subCategory.price}</div>
+            <div className="text-3xl font-bold mb-2">₹{subCategory.price}</div>
             <div className="flex items-center mb-4">
               {subCategory.rating ? getRatingStars(subCategory.rating) : getRatingStars(0)}
             </div>
             <div className="flex flex-col items-center">
-            {token ? (
+              {token ? (
                 <Link to={`/payment/${id}`}>
-                  <button className="w-40 m-2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                  <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded mb-2">
                     Book
                   </button>
                 </Link>
               ) : (
                 <Link to="/login">
-                  <button className="w-40 m-2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                  <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded mb-2">
                     Book
                   </button>
                 </Link>
               )}
-
               <button
-                class=" 2-40 m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded"
                 type="button"
                 onClick={addItemToCart}
               >
@@ -110,29 +109,29 @@ export default function ProductDetails() {
             </div>
           </div>
         </div>
+        <hr className="my-6" />
+        <div className="text-gray-700 mb-8">
+          <h2 className="text-2xl font-semibold mb-4">Description</h2>
+          <p className="mb-4">
+            {subCategory.description || "This is a detailed description of the product or service. It includes key features, benefits, and any unique selling points that make this product stand out. For example, it might describe the quality, materials used, and the craftsmanship involved. It could also highlight customer satisfaction, any awards or certifications, and other relevant details that would help potential customers make an informed decision."}
+          </p>
+          <p>
+            Our product is designed with the highest quality standards and provides exceptional value for your money. Whether you’re looking for durability, functionality, or style, this product meets all your needs with its innovative design and top-notch performance. Explore more about the benefits and unique features that set our product apart from the competition.
+          </p>
+        </div>
+        <hr className="my-6 " />
+        <div id="reviews" className="mt-8">
+          <h2 className="text-2xl font-semibold mb-4 text-info">Reviews</h2>
+          {subCategoryReview.length > 0 ? (
+            subCategoryReview.map((review) => (
+              <ReviewCard key={review.reviewId} review={review} />
+            ))
+          ) : (
+            <p className="text-gray-500">No reviews available.</p>
+          )}
+        </div>
       </div>
-      <hr className="my-4" />
-      <div className="text-lg text-gray-700 mb-6">
-        <h2 className="text-xl font-bold mb-2">Description</h2>
-        <p>
-          {subCategory.description || "This is a detailed description of the product or service. It includes key features, benefits, and any unique selling points that make this product stand out. For example, it might describe the quality, materials used, and the craftsmanship involved. It could also highlight customer satisfaction, any awards or certifications, and other relevant details that would help potential customers make an informed decision."}
-        </p>
-        <p className="mt-4">
-          Our product is designed with the highest quality standards and provides exceptional value for your money. Whether you’re looking for durability, functionality, or style, this product meets all your needs with its innovative design and top-notch performance. Explore more about the benefits and unique features that set our product apart from the competition.
-        </p>
-        <br />
-        <hr />
-      </div>
-      <div id="reviews" className="mt-6">
-        <h2 className="text-xl font-semibold mb-4 text-info" style={{ fontSize: "1.7rem" }}>Reviews</h2>
-        {subCategoryReview.length > 0 ? (
-          subCategoryReview.map((review) => (
-            <ReviewCard key={review.reviewId} review={review} />
-          ))
-        ) : (
-          <p className="text-gray-500">No reviews available.</p>
-        )}
-      </div>
-    </div><Footer className="mt-6" /></>
+      <Footer className="mt-6" />
+    </div>
   );
 }
