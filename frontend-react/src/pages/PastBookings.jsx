@@ -40,7 +40,7 @@ function PastBookings() {
 
   const naviage = useNavigate();
   const onRaiseSupport = () => {
-    naviage("/support");
+    naviage("/about");
   };
   return (
     <div className="page-container">

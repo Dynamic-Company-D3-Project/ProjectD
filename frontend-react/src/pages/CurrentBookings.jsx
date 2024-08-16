@@ -49,7 +49,7 @@ function CurrentBookings() {
   const navigate = useNavigate();
 
   const onSupport = () => {
-    navigate("/support");
+    navigate("/about");
   };
   //console.log(bookings)
   return (
