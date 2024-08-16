@@ -81,6 +81,7 @@ function ViewServices() {
         text={service.categoryName}
         price={service.price}
         id={service.id}
+        image={service.image}
       />
     ))}
   </div>

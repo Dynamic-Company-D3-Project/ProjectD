@@ -27,8 +27,9 @@ const ReviewCard = ({ customer, title, review, category, rating, date }) => {
 
   const categoryStyle = {
     fontSize: "1em",
-    color: "#999",
+    color: "green",
     marginBottom: "10px",
+  
   };
 
   const reviewStyle = {

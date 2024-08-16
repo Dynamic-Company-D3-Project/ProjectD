@@ -5,158 +5,133 @@ import ReviewCard from "../components/ReviewCard";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { SPRING_URL } from "../services/Service";
-import {toast } from "react-toastify";
+import { toast } from "react-toastify";
 import NavBarUser from "../components/NavBarUser";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function ProductDetails() {
-  let [subCategory, setSubCategory] = useState([]);
+  const [subCategory, setSubCategory] = useState({});
+  const [subCategoryReview, setSubCategoryReview] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
     loadSubCategories();
+    loadSubCategoryReviews();
   }, [id]);
 
   async function loadSubCategories() {
     try {
-      let subCategoryDetails = await axios.get(
-        `${SPRING_URL}/subCategory/subCategoryById/${id}`
-      );
-      console.log(subCategoryDetails.data);
-      setSubCategory(subCategoryDetails.data);
+      const response = await axios.get(`${SPRING_URL}/subCategory/subCategoryById/${id}`);
+      setSubCategory(response.data);
     } catch (error) {
       console.error("Failed to load subcategory", error);
       toast.error("Error fetching the data");
     }
   }
-  const getRatingStars = (rating) => {
-    let stars = [];
-    for (let i = 0; i < rating; i++) {
-      stars.push(
-        <input
-          key={i}
-          type="radio"
-          name="rating"
-          className={`mask mask-star-2 ${
-            i <= rating ? "bg-orange-400" : "bg-gray-300"
-          }`}
-          readOnly
-        />
-      );
+
+  async function loadSubCategoryReviews() {
+    try {
+      const response = await axios.get(`${SPRING_URL}/reviews/${id}`);
+      setSubCategoryReview(response.data);
+    } catch (error) {
+      console.error("Failed to load subcategory reviews", error);
+      toast.error("Error fetching the reviews");
     }
-    return stars;
+  }
+
+  const getRatingStars = (rating) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <svg
+        key={i}
+        className={`w-6 h-6 ${i < rating ? "text-orange-500" : "text-gray-300"}`}
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+      >
+        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+      </svg>
+    ));
   };
+
   const token = sessionStorage.getItem("authToken");
 
   const addItemToCart = async () => {
-    axios
-      .post(`${SPRING_URL}/cart/${id}`, null, {
+    try {
+      const response = await axios.post(`${SPRING_URL}/cart/${id}`, null, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
-      .then((response) => {
-        toast.success(response["data"]);
-      })
-      .catch((error) => {
-        toast.error("Can't add your data");
       });
+      toast.success(response.data);
+    } catch (error) {
+      toast.error("Can't add your data");
+    }
   };
+
   return (
-    <div className="page-container">
+    <div className="page-container bg-gray-100 min-h-screen">
       {token ? <NavBarUser /> : <NavBar />}
-      <div className="content-container container mt-4">
-        <div className="d-flex justify-content-between">
-          <div className="d-flex flex-col">
+      <div className="content-container container mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
+        <div className="flex flex-col lg:flex-row justify-between items-start gap-6">
+          <div className="flex flex-col items-start">
             <img
-              class="w-60 h-60 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
-              src="/assets/SubCategory.jpg"
+              className="w-48 h-48 object-cover rounded-lg border border-gray-300"
+              src={subCategory.image}
+              alt={subCategory.categoryName}
             />
-            <h1 className="categoryHeading pl-1">{subCategory.categoryName}</h1>
+            <h1 className="text-3xl font-bold mt-4">{subCategory.categoryName}</h1>
           </div>
-          <div>
-            <div class="container d-flex flex-col text-center justify-content-center align-items-center">
-              {/* <div class="time text-6xl mb-4">25:30</div>{" "} */}
-              <div className="price text-6xl mb-4">₹{subCategory.price}</div>
-              {/* <div class="rating d-flex justify-content-center">
-                <input
-                  type="radio"
-                  name="rating-2"
-                  class="mask mask-star-2 bg-orange-400"
-                />
-                <input
-                  type="radio"
-                  name="rating-2"
-                  class="mask mask-star-2 bg-orange-400"
-                  checked
-                />
-                <input
-                  type="radio"
-                  name="rating-2"
-                  class="mask mask-star-2 bg-orange-400"
-                />
-                <input
-                  type="radio"
-                  name="rating-2"
-                  class="mask mask-star-2 bg-orange-400"
-                />
-                <input
-                  type="radio"
-                  name="rating-2"
-                  class="mask mask-star-2 bg-orange-400"
-                />
-              </div> */}
-              <div className="rating d-flex justify-content-center">
-                {subCategory.rating ? getRatingStars(subCategory.rating) : null}
-              </div>
-              <div className="d-flex flex-col m-2">
-                {token ?
+          <div className="flex flex-col items-center justify-center">
+            <div className="text-3xl font-bold mb-2">₹{subCategory.price}</div>
+            <div className="flex items-center mb-4">
+              {subCategory.rating ? getRatingStars(subCategory.rating) : getRatingStars(0)}
+            </div>
+            <div className="flex flex-col items-center">
+              {token ? (
                 <Link to={`/payment/${id}`}>
-                <button
-                  class="w-40 m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  type="button"
-                >
-                  Book
-                </button>
-              </Link> :
-              <Link to={"/login"}>
-                  <button
-                    class="w-40 m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    type="button"
-                  >
+                  <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded mb-2">
                     Book
                   </button>
                 </Link>
-                }
-                
-
-                <button
-                  class=" 2-40 m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  type="button"
-                  onClick={addItemToCart}
-                >
-                  Add To Cart
-                </button>
-              </div>
+              ) : (
+                <Link to="/login">
+                  <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded mb-2">
+                    Book
+                  </button>
+                </Link>
+              )}
+              <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded"
+                type="button"
+                onClick={addItemToCart}
+              >
+                Add To Cart
+              </button>
             </div>
           </div>
         </div>
-        <hr />
-        <br></br>
-        <div className="indent-0 text-wrap text-balance text-pretty">
-          <h2>{subCategory.description}</h2>
+        <hr className="my-6" />
+        <div className="text-gray-700 mb-8">
+          <h2 className="text-2xl font-semibold mb-4">Description</h2>
+          <p className="mb-4">
+            {subCategory.description || "This is a detailed description of the product or service. It includes key features, benefits, and any unique selling points that make this product stand out. For example, it might describe the quality, materials used, and the craftsmanship involved. It could also highlight customer satisfaction, any awards or certifications, and other relevant details that would help potential customers make an informed decision."}
+          </p>
+          <p>
+            Our product is designed with the highest quality standards and provides exceptional value for your money. Whether you’re looking for durability, functionality, or style, this product meets all your needs with its innovative design and top-notch performance. Explore more about the benefits and unique features that set our product apart from the competition.
+          </p>
         </div>
-        <br />
-
-        <div id="reviews">
-          <ReviewCard />
-          <ReviewCard />
-          <ReviewCard />
+        <hr className="my-6 " />
+        <div id="reviews" className="mt-8">
+          <h2 className="text-2xl font-semibold mb-4 text-info">Reviews</h2>
+          {subCategoryReview.length > 0 ? (
+            subCategoryReview.map((review) => (
+              <ReviewCard key={review.reviewId} review={review} />
+            ))
+          ) : (
+            <p className="text-gray-500">No reviews available.</p>
+          )}
         </div>
       </div>
-      <div className="footer-pin">
-        <Footer />
-      </div>
+      <Footer className="mt-6" />
     </div>
   );
 }

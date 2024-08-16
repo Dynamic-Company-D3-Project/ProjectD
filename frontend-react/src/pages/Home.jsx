@@ -42,7 +42,7 @@ function Home() {
   const token = sessionStorage.getItem("authToken");
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       {token ? <NavBarUser /> : <NavBar />}
       <div className="content-container flex-col" style={{ gap: "10px" }}>
         <div className="flex justify-center items-center w-500 h-250 mt-5 flex-col">
@@ -76,6 +76,7 @@ function Home() {
                   category_name={cat.name}
                   description={cat.description}
                   id={cat.id}
+                  image= {cat.imageUrl}
                 />
               ))}
             </div>           
@@ -97,7 +98,7 @@ function Home() {
                       <Link
                         to={`/services/${mapData.id}`}
                         className="btn btn-outline btn-accent"
-                        style={{ marginRight: "8rem" }}
+                        style={{ marginRight: "0.5rem" }}
                       >
                         See All
                       </Link>
@@ -108,6 +109,7 @@ function Home() {
                     category={mapData.name}
                     subCategoryData={mapData.subCategories}
                     id={mapData.id}
+                    image={mapData.imageUrl}
                   />
                 </Container>
               ))}
