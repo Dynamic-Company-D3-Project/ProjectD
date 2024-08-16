@@ -14,7 +14,7 @@ export default function ProviderOrders(params) {
   }, []);
   async function loadOrders() {
     const result = await getOrdersById();
-    console.log(result["data"]);
+    // console.log(result["data"]);
 
     if (result["status"] === "error") toast.error("unable to load data");
     else {
