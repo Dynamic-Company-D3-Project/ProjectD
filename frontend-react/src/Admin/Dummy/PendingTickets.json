@@ -1,0 +1,36 @@
+[
+    {
+        "BookingId": "B001",
+        "TicketNo": "T1001",
+        "Type": "Plumbing",
+        "Description": "Fixing a leaking faucet in the kitchen."
+      }
+      ,
+      {
+        "BookingId": "B002",
+        "TicketNo": "T1002",
+        "Type": "Electrical",
+        "Description": "Repairing a short circuit in the living room."
+      }
+      ,
+      {
+        "BookingId": "B003",
+        "TicketNo": "T1003",
+        "Type": "Cleaning",
+        "Description": "Deep cleaning of the entire house."
+      }
+     ,
+      {
+        "BookingId": "B004",
+        "TicketNo": "T1004",
+        "Type": "HVAC",
+        "Description": "Servicing the air conditioning unit."
+      }
+     ,
+      {
+        "BookingId": "B005",
+        "TicketNo": "T1005",
+        "Type": "Carpentry",
+        "Description": "Fixing a broken door in the bedroom."
+      }
+]

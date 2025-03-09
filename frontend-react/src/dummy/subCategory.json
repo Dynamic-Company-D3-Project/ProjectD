@@ -1,0 +1,64 @@
+{
+  "map": [
+    {
+      "category": "Pest Control",
+      "subCategory": [
+        "Rodent Control",
+        "Termite Control",
+        "Mosquito Control",
+        "Bed Bug Treatment",
+        "Cockroach Control",
+        "General Pest Control",
+        "Wildlife Removal"
+      ]
+    },
+    {
+      "category": "Electrician",
+      "subCategory": [
+        "Electrical Outlet Repair",
+        "Light Fixture Installation",
+        "Ceiling Fan Installation",
+        "Circuit Panel Upgrade",
+        "Wiring Repair",
+        "Appliance Installation",
+        "Electrical Inspection"
+      ]
+    },
+    {
+      "category": "Plumber",
+      "subCategory": [
+        "Faucet Repair",
+        "Toilet Repair",
+        "Leak Detection and Repair",
+        "Drain Cleaning",
+        "Garbage Disposal Repair",
+        "Water Heater Installation",
+        "Shower Repair"
+      ]
+    },
+    {
+      "category": "Carpenter",
+      "subCategory": [
+        "Furniture Assembly",
+        "Door Installation",
+        "Cabinet Installation",
+        "Flooring Repair",
+        "Deck Repair",
+        "Custom Carpentry",
+        "Drywall Repair"
+      ]
+    },
+    {
+      "category": "Installation",
+      "subCategory": [
+        "TV Mounting",
+        "Security System Installation",
+        "Home Theater Installation",
+        "Appliance Installation",
+        "Furniture Assembly",
+        "Chandelier Installation",
+        "Curtain Rod Installation"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+[
+    {
+        "BookingId": "B001",
+        "UserId": "U1001",
+        "Date": "2024-07-01",
+        "Time": "10:00 AM",
+        "Price": 150.00,
+        "ProviderId": "P2001"
+      }
+      ,
+      {
+        "BookingId": "B002",
+        "UserId": "U1002",
+        "Date": "2024-07-02",
+        "Time": "11:00 AM",
+        "Price": 200.00,
+        "ProviderId": "P2002"
+      },
+    
+      {
+        "BookingId": "B003",
+        "UserId": "U1003",
+        "Date": "2024-07-03",
+        "Time": "12:00 PM",
+        "Price": 175.00,
+        "ProviderId": "P2003"
+      }
+      ,
+      {
+        "BookingId": "B004",
+        "UserId": "U1004",
+        "Date": "2024-07-04",
+        "Time": "01:00 PM",
+        "Price": 220.00,
+        "ProviderId": "P2004"
+      }
+     ,
+      {
+        "BookingId": "B005",
+        "UserId": "U1005",
+        "Date": "2024-07-05",
+        "Time": "02:00 PM",
+        "Price": 180.00,
+        "ProviderId": "P2005"
+      }
+]
